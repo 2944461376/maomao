@@ -198,4 +198,3 @@ div::-webkit-scrollbar-thumb:hover {
   background: #5568d3;
 }
 </style>
-

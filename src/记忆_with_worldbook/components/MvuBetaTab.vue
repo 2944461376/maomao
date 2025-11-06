@@ -51,9 +51,9 @@
       </div>
 
       <div v-if="expanded.structure" class="tool-content">
-      <div class="tool-instructions" style="margin-bottom: 15px">
-        <p style="margin: 0 0 8px 0; color: #ccc; font-size: 12px">
-          <i class="fa-solid fa-info-circle" style="margin-right: 6px; color: #17a2b8"></i>
+        <div class="tool-instructions" style="margin-bottom: 15px">
+          <p style="margin: 0 0 8px 0; color: #ccc; font-size: 12px">
+            <i class="fa-solid fa-info-circle" style="margin-right: 6px; color: #17a2b8"></i>
             生成符合 MVU Beta 规范的 <strong style="color: #4a9eff">[InitVar]</strong> 初始化数据。
           </p>
           <p
@@ -68,51 +68,51 @@
             "
           >
             ⚠️ 重要：InitVar JSON 中<strong>不要包含 "stat_data" 根节点</strong>，系统会自动添加
-        </p>
-      </div>
-
-      <!-- AI智能生成区域 -->
-      <div 
-        style="
-          background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
-          border: 1px solid rgba(102, 126, 234, 0.3);
-          border-radius: 8px;
-          padding: 15px;
-          margin-bottom: 20px;
-        "
-      >
-        <h4 style="color: #667eea; font-size: 14px; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-          AI 智能生成（推荐）
-        </h4>
-        
-        <div class="form-group" style="margin: 0 0 12px 0">
-          <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
-              描述你的变量需求：
-          </label>
-          <textarea
-            v-model="aiStructurePrompt"
-              placeholder="例如：我需要一个角色属性系统，包含名字（字符串）、等级（数字，初始为1）、好感度（数字，范围-30到100）、背包（可扩展数组）、成就（可扩展对象）"
-            rows="4"
-            style="
-              width: 100%;
-              padding: 12px;
-              background: #2a2a2a;
-              border: 1px solid #3a3a3a;
-              border-radius: 6px;
-              color: #e0e0e0;
-              font-size: 13px;
-              resize: vertical;
-              line-height: 1.5;
-              transition: all 0.2s ease;
-            "
-            @focus="(e: any) => (e.target.style.borderColor = '#667eea')"
-            @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
-          ></textarea>
+          </p>
         </div>
 
-          <button 
-            class="ai-generate-btn" 
+        <!-- AI智能生成区域 -->
+        <div
+          style="
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+          "
+        >
+          <h4 style="color: #667eea; font-size: 14px; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI 智能生成（推荐）
+          </h4>
+
+          <div class="form-group" style="margin: 0 0 12px 0">
+            <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
+              描述你的变量需求：
+            </label>
+            <textarea
+              v-model="aiStructurePrompt"
+              placeholder="例如：我需要一个角色属性系统，包含名字（字符串）、等级（数字，初始为1）、好感度（数字，范围-30到100）、背包（可扩展数组）、成就（可扩展对象）"
+              rows="4"
+              style="
+                width: 100%;
+                padding: 12px;
+                background: #2a2a2a;
+                border: 1px solid #3a3a3a;
+                border-radius: 6px;
+                color: #e0e0e0;
+                font-size: 13px;
+                resize: vertical;
+                line-height: 1.5;
+                transition: all 0.2s ease;
+              "
+              @focus="(e: any) => (e.target.style.borderColor = '#667eea')"
+              @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
+            ></textarea>
+          </div>
+
+          <button
+            class="ai-generate-btn"
             :disabled="isGeneratingAI || !aiStructurePrompt.trim()"
             style="
               padding: 12px 24px;
@@ -186,7 +186,8 @@
             @click="showStructureModifyDialog = true"
             @mouseenter="
               (e: any) => {
-                e.currentTarget.style.background = 'linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(245, 158, 11, 0.45))';
+                e.currentTarget.style.background =
+                  'linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(245, 158, 11, 0.45))';
                 e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.6)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(251, 191, 36, 0.35)';
@@ -194,7 +195,8 @@
             "
             @mouseleave="
               (e: any) => {
-                e.currentTarget.style.background = 'linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.3))';
+                e.currentTarget.style.background =
+                  'linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.3))';
                 e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.4)';
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(251, 191, 36, 0.2)';
@@ -205,96 +207,96 @@
             AI 修改
           </button>
 
-        <p style="color: #888; font-size: 11px; margin: 8px 0 0 0">
+          <p style="color: #888; font-size: 11px; margin: 8px 0 0 0">
             💡 AI 会根据你的描述自动生成结构、选择类型、配置 $meta
-        </p>
-      </div>
+          </p>
+        </div>
 
-      <div style="text-align: center; margin: 20px 0; position: relative">
+        <div style="text-align: center; margin: 20px 0; position: relative">
           <span
             style="background: #1a1a1a; padding: 0 12px; color: #666; font-size: 12px; position: relative; z-index: 1"
             >或手动配置</span
           >
           <div
             style="
-          position: absolute;
-          top: 50%;
-          left: 0;
-          right: 0;
-          height: 1px;
-          background: rgba(255, 255, 255, 0.1);
-          z-index: 0;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              right: 0;
+              height: 1px;
+              background: rgba(255, 255, 255, 0.1);
+              z-index: 0;
             "
           ></div>
-      </div>
-
-      <div class="form-group" style="margin: 15px 0">
-        <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
-          变量名称：
-        </label>
-        <input 
-          v-model="varName" 
-          type="text" 
-          placeholder="例如：角色、背包、技能" 
-          style="
-            width: 100%;
-            padding: 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: all 0.2s ease;
-          "
-          @focus="(e: any) => (e.target.style.borderColor = '#4a9eff')"
-          @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
-        />
-      </div>
+        </div>
 
         <div class="form-group" style="margin: 15px 0">
-        <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
-            子字段（每行一个，格式：字段名:类型:描述）：
-        </label>
-        <textarea
-          v-model="subFields"
-            placeholder="例如：&#10;好感度:number:[-30,100]之间，与角色交流时变化&#10;名字:string:角色名称&#10;背包:array:获得或使用物品时更新"
-          rows="5"
-          style="
-            width: 100%;
-            height: 120px;
-            padding: 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            resize: vertical;
-            font-family: 'Courier New', monospace;
-            line-height: 1.5;
-            transition: all 0.2s ease;
-          "
-          @focus="(e: any) => (e.target.style.borderColor = '#4a9eff')"
-          @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
-        ></textarea>
-          <p style="color: #888; font-size: 11px; margin: 6px 0 0 0">💡 支持类型：number、string、array、object</p>
-      </div>
+          <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
+            变量名称：
+          </label>
+          <input
+            v-model="varName"
+            type="text"
+            placeholder="例如：角色、背包、技能"
+            style="
+              width: 100%;
+              padding: 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: all 0.2s ease;
+            "
+            @focus="(e: any) => (e.target.style.borderColor = '#4a9eff')"
+            @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
+          />
+        </div>
 
-      <button 
-        class="generate-btn" 
-        style="
-          padding: 12px 24px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          border: none;
-          border-radius: 8px;
-          color: white;
-          font-size: 13px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
-          position: relative;
-          overflow: hidden;
-        "
+        <div class="form-group" style="margin: 15px 0">
+          <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
+            子字段（每行一个，格式：字段名:类型:描述）：
+          </label>
+          <textarea
+            v-model="subFields"
+            placeholder="例如：&#10;好感度:number:[-30,100]之间，与角色交流时变化&#10;名字:string:角色名称&#10;背包:array:获得或使用物品时更新"
+            rows="5"
+            style="
+              width: 100%;
+              height: 120px;
+              padding: 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              resize: vertical;
+              font-family: 'Courier New', monospace;
+              line-height: 1.5;
+              transition: all 0.2s ease;
+            "
+            @focus="(e: any) => (e.target.style.borderColor = '#4a9eff')"
+            @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
+          ></textarea>
+          <p style="color: #888; font-size: 11px; margin: 6px 0 0 0">💡 支持类型：number、string、array、object</p>
+        </div>
+
+        <button
+          class="generate-btn"
+          style="
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+          "
           @click="generateStructure"
           @mouseenter="
             (e: any) => {
@@ -308,59 +310,59 @@
               e.currentTarget.style.boxShadow = '0 3px 12px rgba(102, 126, 234, 0.3)';
             }
           "
-      >
-        <div
-          style="
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-          "
-          class="shimmer-effect"
-        ></div>
-        <i class="fa-solid fa-magic" style="font-size: 14px; margin-right: 6px; position: relative; z-index: 1"></i>
-          <span style="position: relative; z-index: 1">生成 [InitVar] 结构</span>
-      </button>
-
-      <div v-if="generatedStructure" class="output-section">
-          <h4 style="color: #4a9eff; font-size: 14px; margin-bottom: 10px">生成的 [InitVar] 结构：</h4>
-        <div class="code-output">
-          <pre>{{ generatedStructure }}</pre>
-          <button class="copy-btn-abs" @click="copyGenerated">
-            <i class="fa-solid fa-copy"></i>
-          </button>
-        </div>
-        
-        <!-- 快捷操作 -->
+        >
           <div
             style="
-          margin-top: 15px;
-          padding: 12px;
-          background: rgba(74, 158, 255, 0.05);
-          border: 1px solid rgba(74, 158, 255, 0.2);
-          border-radius: 8px;
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+              transition: left 0.5s;
+            "
+            class="shimmer-effect"
+          ></div>
+          <i class="fa-solid fa-magic" style="font-size: 14px; margin-right: 6px; position: relative; z-index: 1"></i>
+          <span style="position: relative; z-index: 1">生成 [InitVar] 结构</span>
+        </button>
+
+        <div v-if="generatedStructure" class="output-section">
+          <h4 style="color: #4a9eff; font-size: 14px; margin-bottom: 10px">生成的 [InitVar] 结构：</h4>
+          <div class="code-output">
+            <pre>{{ generatedStructure }}</pre>
+            <button class="copy-btn-abs" @click="copyGenerated">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+
+          <!-- 快捷操作 -->
+          <div
+            style="
+              margin-top: 15px;
+              padding: 12px;
+              background: rgba(74, 158, 255, 0.05);
+              border: 1px solid rgba(74, 158, 255, 0.2);
+              border-radius: 8px;
             "
           >
-          <p style="margin: 0 0 10px 0; color: #4a9eff; font-size: 12px; font-weight: 600">
-            <i class="fa-solid fa-link"></i> 基于此结构继续生成：
-          </p>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap">
-            <button 
-              style="
-                flex: 1;
-                min-width: 140px;
-                padding: 8px 16px;
-                background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3));
-                color: #10b981;
-                border: 1px solid rgba(16, 185, 129, 0.4);
-                border-radius: 6px;
-                font-size: 12px;
-                cursor: pointer;
-                transition: all 0.2s;
-              "
+            <p style="margin: 0 0 10px 0; color: #4a9eff; font-size: 12px; font-weight: 600">
+              <i class="fa-solid fa-link"></i> 基于此结构继续生成：
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <button
+                style="
+                  flex: 1;
+                  min-width: 140px;
+                  padding: 8px 16px;
+                  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3));
+                  color: #10b981;
+                  border: 1px solid rgba(16, 185, 129, 0.4);
+                  border-radius: 6px;
+                  font-size: 12px;
+                  cursor: pointer;
+                  transition: all 0.2s;
+                "
                 @click="autoGeneratePrompt"
                 @mouseenter="
                   (e: any) => {
@@ -376,20 +378,20 @@
                 "
               >
                 <i class="fa-solid fa-file-alt"></i> 生成 COT 提示词
-            </button>
-            <button 
-              style="
-                flex: 1;
-                min-width: 140px;
-                padding: 8px 16px;
+              </button>
+              <button
+                style="
+                  flex: 1;
+                  min-width: 140px;
+                  padding: 8px 16px;
                   background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.3));
                   color: #f59e0b;
                   border: 1px solid rgba(245, 158, 11, 0.4);
-                border-radius: 6px;
-                font-size: 12px;
-                cursor: pointer;
-                transition: all 0.2s;
-              "
+                  border-radius: 6px;
+                  font-size: 12px;
+                  cursor: pointer;
+                  transition: all 0.2s;
+                "
                 @click="exportWorldbook"
                 @mouseenter="
                   (e: any) => {
@@ -405,10 +407,10 @@
                 "
               >
                 <i class="fa-solid fa-book"></i> 导出世界书 JSON
-            </button>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
 
@@ -448,8 +450,8 @@
             color: #fff;
             font-size: 16px;
             font-weight: 600;
-          display: flex;
-          align-items: center;
+            display: flex;
+            align-items: center;
             gap: 10px;
           "
         >
@@ -463,70 +465,70 @@
       </div>
 
       <div v-if="expanded.prompt" class="tool-content">
-      <div class="tool-instructions" style="margin-bottom: 15px">
-        <p style="margin: 0 0 8px 0; color: #ccc; font-size: 12px">
-          <i class="fa-solid fa-info-circle" style="margin-right: 6px; color: #17a2b8"></i>
+        <div class="tool-instructions" style="margin-bottom: 15px">
+          <p style="margin: 0 0 8px 0; color: #ccc; font-size: 12px">
+            <i class="fa-solid fa-info-circle" style="margin-right: 6px; color: #17a2b8"></i>
             生成适用于 MVU Beta 的 <strong style="color: #fbbf24">COT（思维链）提示词模板</strong>，包含 6 步分析流程。
-        </p>
-      </div>
-
-      <!-- AI智能生成区域 -->
-      <div 
-        style="
-          background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(245, 158, 11, 0.08));
-          border: 1px solid rgba(251, 191, 36, 0.3);
-          border-radius: 8px;
-          padding: 15px;
-          margin-bottom: 20px;
-        "
-      >
-        <h4 style="color: #fbbf24; font-size: 14px; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-          AI 智能生成（推荐）
-        </h4>
-        
-        <div class="form-group" style="margin: 0 0 12px 0">
-          <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
-            描述你的变量系统和使用场景：
-          </label>
-          <textarea
-            v-model="aiPromptDescription"
-              placeholder="例如：我的角色卡有一个好感度系统和时间系统，需要 AI 在每次互动后更新时间和好感度"
-            rows="4"
-            style="
-              width: 100%;
-              padding: 12px;
-              background: #2a2a2a;
-              border: 1px solid #3a3a3a;
-              border-radius: 6px;
-              color: #e0e0e0;
-              font-size: 13px;
-              resize: vertical;
-              line-height: 1.5;
-              transition: all 0.2s ease;
-            "
-            @focus="(e: any) => (e.target.style.borderColor = '#fbbf24')"
-            @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
-          ></textarea>
+          </p>
         </div>
 
-        <button 
-          class="ai-generate-btn" 
-          :disabled="isGeneratingPrompt || !aiPromptDescription.trim()"
+        <!-- AI智能生成区域 -->
+        <div
           style="
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border: none;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(245, 158, 11, 0.08));
+            border: 1px solid rgba(251, 191, 36, 0.3);
             border-radius: 8px;
-            color: white;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 12px rgba(251, 191, 36, 0.3);
-            position: relative;
-            overflow: hidden;
+            padding: 15px;
+            margin-bottom: 20px;
           "
+        >
+          <h4 style="color: #fbbf24; font-size: 14px; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            AI 智能生成（推荐）
+          </h4>
+
+          <div class="form-group" style="margin: 0 0 12px 0">
+            <label style="display: block; margin-bottom: 8px; color: #ccc; font-size: 13px; font-weight: 500">
+              描述你的变量系统和使用场景：
+            </label>
+            <textarea
+              v-model="aiPromptDescription"
+              placeholder="例如：我的角色卡有一个好感度系统和时间系统，需要 AI 在每次互动后更新时间和好感度"
+              rows="4"
+              style="
+                width: 100%;
+                padding: 12px;
+                background: #2a2a2a;
+                border: 1px solid #3a3a3a;
+                border-radius: 6px;
+                color: #e0e0e0;
+                font-size: 13px;
+                resize: vertical;
+                line-height: 1.5;
+                transition: all 0.2s ease;
+              "
+              @focus="(e: any) => (e.target.style.borderColor = '#fbbf24')"
+              @blur="(e: any) => (e.target.style.borderColor = '#3a3a3a')"
+            ></textarea>
+          </div>
+
+          <button
+            class="ai-generate-btn"
+            :disabled="isGeneratingPrompt || !aiPromptDescription.trim()"
+            style="
+              padding: 12px 24px;
+              background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+              border: none;
+              border-radius: 8px;
+              color: white;
+              font-size: 13px;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              box-shadow: 0 3px 12px rgba(251, 191, 36, 0.3);
+              position: relative;
+              overflow: hidden;
+            "
             :style="{
               opacity: isGeneratingPrompt || !aiPromptDescription.trim() ? 0.6 : 1,
               cursor: isGeneratingPrompt || !aiPromptDescription.trim() ? 'not-allowed' : 'pointer',
@@ -546,23 +548,23 @@
                 e.currentTarget.style.boxShadow = '0 3px 12px rgba(251, 191, 36, 0.3)';
               }
             "
-      >
-        <div
-          style="
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-          "
-          class="shimmer-effect"
-        ></div>
+          >
+            <div
+              style="
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.5s;
+              "
+              class="shimmer-effect"
+            ></div>
             <i
               class="fa-solid fa-wand-magic-sparkles"
               style="font-size: 14px; margin-right: 6px; position: relative; z-index: 1"
-        ></i>
+            ></i>
             <span style="position: relative; z-index: 1">{{
               isGeneratingPrompt ? 'AI 生成中...' : 'AI 智能生成'
             }}</span>
@@ -587,7 +589,8 @@
             @click="showPromptModifyDialog = true"
             @mouseenter="
               (e: any) => {
-                e.currentTarget.style.background = 'linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(245, 158, 11, 0.45))';
+                e.currentTarget.style.background =
+                  'linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(245, 158, 11, 0.45))';
                 e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.6)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(251, 191, 36, 0.35)';
@@ -595,7 +598,8 @@
             "
             @mouseleave="
               (e: any) => {
-                e.currentTarget.style.background = 'linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.3))';
+                e.currentTarget.style.background =
+                  'linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.3))';
                 e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.4)';
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(251, 191, 36, 0.2)';
@@ -608,23 +612,23 @@
 
           <p style="color: #888; font-size: 11px; margin: 8px 0 0 0">
             💡 AI 会根据你的描述自动生成完整的 6 步 COT 提示词
-        </p>
-      </div>
+          </p>
+        </div>
 
         <div style="text-align: center; margin: 20px 0; position: relative">
           <span
             style="background: #1a1a1a; padding: 0 12px; color: #666; font-size: 12px; position: relative; z-index: 1"
             >或手动配置</span
-        >
+          >
           <div
             style="
-          position: absolute;
-          top: 50%;
-          left: 0;
-          right: 0;
-          height: 1px;
-          background: rgba(255, 255, 255, 0.1);
-          z-index: 0;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              right: 0;
+              height: 1px;
+              background: rgba(255, 255, 255, 0.1);
+              z-index: 0;
             "
           ></div>
         </div>
@@ -656,8 +660,8 @@
           <p style="color: #888; font-size: 11px; margin: 6px 0 0 0">💡 AI 会在 STEP 3 中按照这些分类逐个检查变量</p>
         </div>
 
-        <button 
-          class="generate-btn" 
+        <button
+          class="generate-btn"
           style="
             margin-top: 10px;
             padding: 12px 24px;
@@ -710,8 +714,8 @@
             <button class="copy-btn-abs" @click="copyPrompt">
               <i class="fa-solid fa-copy"></i>
             </button>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
@@ -921,15 +925,22 @@ async function handleAIGenerateStructure() {
       }
       console.error('API 请求失败:', errorMessage);
       console.error('请求 URL:', settings.value.api_endpoint);
-      console.error('请求体:', JSON.stringify({
-        model: settings.value.model,
-        messages: [
-          { role: 'system', content: systemPrompt.substring(0, 100) + '...' },
-          { role: 'user', content: `需求：${aiStructurePrompt.value.substring(0, 100)}...` },
-        ],
-        temperature: settings.value.temperature || 0.7,
-        max_tokens: settings.value.max_tokens || 4000,
-      }, null, 2));
+      console.error(
+        '请求体:',
+        JSON.stringify(
+          {
+            model: settings.value.model,
+            messages: [
+              { role: 'system', content: systemPrompt.substring(0, 100) + '...' },
+              { role: 'user', content: `需求：${aiStructurePrompt.value.substring(0, 100)}...` },
+            ],
+            temperature: settings.value.temperature || 0.7,
+            max_tokens: settings.value.max_tokens || 4000,
+          },
+          null,
+          2,
+        ),
+      );
       throw new Error(errorMessage);
     }
 
@@ -945,7 +956,7 @@ async function handleAIGenerateStructure() {
     } else if (data.content) {
       result = typeof data.content === 'string' ? data.content : JSON.stringify(data.content);
     }
-    
+
     console.log('AI 返回内容:', result);
 
     // 提取 JSON
@@ -1079,7 +1090,7 @@ function autoGeneratePrompt() {
     expanded.value.prompt = true;
     generatePrompt();
     window.toastr.success('已基于结构自动生成 COT 提示词');
-    
+
     setTimeout(() => {
       const promptSection = document.querySelector('.tool-section:nth-child(2)');
       promptSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1292,7 +1303,7 @@ async function handleAIGeneratePrompt() {
 
     // 先读取响应文本
     const responseText2 = await response.text();
-    
+
     if (!response.ok) {
       // 尝试解析错误信息
       let errorMessage = `API 错误: ${response.status}`;
@@ -1310,15 +1321,22 @@ async function handleAIGeneratePrompt() {
       }
       console.error('API 请求失败:', errorMessage);
       console.error('请求 URL:', settings.value.api_endpoint);
-      console.error('请求体:', JSON.stringify({
-        model: settings.value.model,
-        messages: [
-          { role: 'system', content: systemPrompt.substring(0, 100) + '...' },
-          { role: 'user', content: `场景：${aiPromptDescription.value.substring(0, 100)}...` },
-        ],
-        temperature: settings.value.temperature || 0.7,
-        max_tokens: settings.value.max_tokens || 3000,
-      }, null, 2));
+      console.error(
+        '请求体:',
+        JSON.stringify(
+          {
+            model: settings.value.model,
+            messages: [
+              { role: 'system', content: systemPrompt.substring(0, 100) + '...' },
+              { role: 'user', content: `场景：${aiPromptDescription.value.substring(0, 100)}...` },
+            ],
+            temperature: settings.value.temperature || 0.7,
+            max_tokens: settings.value.max_tokens || 3000,
+          },
+          null,
+          2,
+        ),
+      );
       throw new Error(errorMessage);
     }
 
@@ -1411,7 +1429,7 @@ ${modifyInstruction}
     // 清理并解析
     jsonText = jsonText.replace(/,(\s*[}\]])/g, '$1');
     const parsed = JSON.parse(jsonText);
-    
+
     const varNameParsed = Object.keys(parsed).find(k => k !== '$meta') || 'myVar';
     varName.value = varNameParsed;
 
@@ -1527,7 +1545,7 @@ function exportWorldbook() {
     window.toastr.error('请先生成 [InitVar] 结构');
     return;
   }
-  
+
   if (!generatedPrompt.value) {
     autoGeneratePrompt();
   }
@@ -1628,7 +1646,7 @@ function exportAsWorldbook() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  
+
   window.toastr.success(`✅ 已导出世界书 JSON：[InitVar] + 变量规则`);
 }
 
@@ -1669,8 +1687,8 @@ function saveData() {
     const scriptId = getScriptIdSafe();
     if (!scriptId) {
       console.warn('script_id 为空，无法保存 MVU 配置');
-    return;
-  }
+      return;
+    }
 
     insertOrAssignVariables(
       {

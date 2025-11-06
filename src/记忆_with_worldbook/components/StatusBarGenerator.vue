@@ -811,7 +811,7 @@
         '把背景色改成深蓝色渐变',
         '添加动画效果，让字段淡入显示',
         '使用卡片布局，每个字段独立显示',
-        '增加悬停效果'
+        '增加悬停效果',
       ]"
       @close="showAiModifyDialog = false"
       @confirm="modifyWithAI"
@@ -952,7 +952,7 @@
         '添加一个【身高】字段',
         '删除【年龄】字段',
         '把【位置】改成【所在地点】',
-        '增加3个用于描述外貌的字段'
+        '增加3个用于描述外貌的字段',
       ]"
       @close="showXmlModifyDialog = false"
       @confirm="modifyXmlWithAI"
@@ -1088,12 +1088,7 @@
       :is-modifying="isModifyingField"
       title="AI 修改字段配置"
       description="描述你想要修改的字段，AI 会在当前字段配置的基础上进行调整。"
-      :examples="[
-        '添加一个【身高】字段',
-        '删除第3个字段',
-        '把【好感度】改成【亲密度】',
-        '增加2个用于描述状态的字段'
-      ]"
+      :examples="['添加一个【身高】字段', '删除第3个字段', '把【好感度】改成【亲密度】', '增加2个用于描述状态的字段']"
       @close="showFieldModifyDialog = false"
       @confirm="modifyFieldWithAI"
     />
@@ -1307,26 +1302,26 @@ const worldbookContent = computed(() => {
   const parseRegexStructure = (regex: string, fields: Field[]): { formatExample: string; exampleOutput: string } => {
     // 提取所有标记（如 <-ENVIRONMENT_DATA->）
     const triggerMatches = regex.match(/<-[^>]+->/g) || [];
-    
+
     if (triggerMatches.length === 0) {
       // 没有标记，简单格式
       const placeholders = fields.map(f => `{{${f.label || f.name}}}`).join('|');
       const exampleValues = fields.map(f => f.label || f.name).join('|');
       return {
         formatExample: `|${placeholders}|`,
-        exampleOutput: `|${exampleValues}|`
+        exampleOutput: `|${exampleValues}|`,
       };
     }
 
     // 统一正则表达式的转义格式（将双重转义转为单次转义）
     let normalizedRegex = regex
-      .replace(/\\\\/g, '\\')  // \\ -> \
-      .replace(/\\\|/g, '|')   // \| -> |
-      .replace(/\\\(/g, '(')   // \( -> (
-      .replace(/\\\)/g, ')')   // \) -> )
-      .replace(/\\\[/g, '[')   // \[ -> [
-      .replace(/\\\]/g, ']')   // \] -> ]
-      .replace(/\\\+/g, '+');  // \+ -> +
+      .replace(/\\\\/g, '\\') // \\ -> \
+      .replace(/\\\|/g, '|') // \| -> |
+      .replace(/\\\(/g, '(') // \( -> (
+      .replace(/\\\)/g, ')') // \) -> )
+      .replace(/\\\[/g, '[') // \[ -> [
+      .replace(/\\\]/g, ']') // \] -> ]
+      .replace(/\\\+/g, '+'); // \+ -> +
 
     console.log('🔍 原始正则:', regex);
     console.log('🔍 规范化正则:', normalizedRegex);
@@ -1335,14 +1330,14 @@ const worldbookContent = computed(() => {
     const lines: string[] = [];
     const exampleLines: string[] = [];
     let fieldIndex = 0;
-    
+
     // 按标记分割正则
     const parts = normalizedRegex.split(/(<-[^>]+->)/);
     console.log('🔍 分割后的部分:', parts);
-    
+
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
-      
+
       // 如果是标记
       if (part.match(/<-[^>]+->/)) {
         lines.push(part);
@@ -1357,15 +1352,15 @@ const worldbookContent = computed(() => {
         console.log(`🔢 部分内容 (前100字符): "${part.substring(0, 100)}"`);
         console.log(`🔢 匹配到的捕获组:`, allCaptures);
         console.log(`🔢 捕获组数量: ${totalCount}, 当前字段索引: ${fieldIndex}, 总字段数: ${fields.length}`);
-        
+
         if (totalCount === 0) {
           console.warn(`⚠️ 未找到捕获组，跳过此部分`);
           continue;
         }
-        
+
         // 每4个字段为一行
         const perLine = 4;
-        
+
         for (let offset = 0; offset < totalCount; offset += perLine) {
           const count = Math.min(perLine, totalCount - offset);
           // 移除 fieldIndex < fields.length 的限制，允许超出字段范围
@@ -1373,7 +1368,11 @@ const worldbookContent = computed(() => {
             const segmentFields = fields.slice(fieldIndex, fieldIndex + count);
             // 如果字段不够，用占位符补齐
             while (segmentFields.length < count) {
-              segmentFields.push({ name: `字段${fieldIndex + segmentFields.length + 1}`, label: `字段${fieldIndex + segmentFields.length + 1}`, icon: '' });
+              segmentFields.push({
+                name: `字段${fieldIndex + segmentFields.length + 1}`,
+                label: `字段${fieldIndex + segmentFields.length + 1}`,
+                icon: '',
+              });
             }
             const placeholders = segmentFields.map(f => `{{${f.label || f.name}}}`).join('|');
             const examples = segmentFields.map(f => f.label || f.name).join('|');
@@ -1391,7 +1390,7 @@ const worldbookContent = computed(() => {
 
     return {
       formatExample: lines.join('\n'),
-      exampleOutput: exampleLines.join('\n')
+      exampleOutput: exampleLines.join('\n'),
     };
   };
 
@@ -1696,8 +1695,8 @@ ${xmlInput.value.trim()}
 
     setTimeout(() => {
       showProgress.value = false;
-    showXmlDialog.value = false;
-    xmlInput.value = '';
+      showXmlDialog.value = false;
+      xmlInput.value = '';
       toastr.success(`成功解析 ${validFields.length} 个字段！`);
     }, 800);
   } catch (error: any) {
@@ -1795,7 +1794,10 @@ ${modifyInstruction}
     progressDialogRef.value?.setMessage('正在解析字段配置...');
 
     // 解析 JSON
-    let jsonText = aiResponse.trim().replace(/^```(?:json)?\s*\n?/i, '').replace(/\n?```\s*$/i, '');
+    let jsonText = aiResponse
+      .trim()
+      .replace(/^```(?:json)?\s*\n?/i, '')
+      .replace(/\n?```\s*$/i, '');
     const jsonMatch = jsonText.match(/\[\s*{[\s\S]*}\s*\]/);
     if (jsonMatch) {
       jsonText = jsonMatch[0];
@@ -1822,7 +1824,7 @@ ${modifyInstruction}
 
     setTimeout(() => {
       showProgress.value = false;
-    showXmlModifyDialog.value = false;
+      showXmlModifyDialog.value = false;
       window.toastr.success('✅ AI 修改完成！');
     }, 800);
   } catch (error: any) {
@@ -2014,8 +2016,8 @@ ${aiFieldDescription.value.trim()}
 
     setTimeout(() => {
       showProgress.value = false;
-    showAiFieldDialog.value = false;
-    aiFieldDescription.value = '';
+      showAiFieldDialog.value = false;
+      aiFieldDescription.value = '';
       toastr.success(`成功生成 ${validFields.length} 个字段！`);
     }, 800);
   } catch (error: any) {
@@ -2126,7 +2128,10 @@ ${modifyInstruction}
     progressDialogRef.value?.setMessage('正在解析字段配置...');
 
     // 解析 JSON
-    let jsonText = aiResponse.trim().replace(/^```(?:json)?\s*\n?/i, '').replace(/\n?```\s*$/i, '');
+    let jsonText = aiResponse
+      .trim()
+      .replace(/^```(?:json)?\s*\n?/i, '')
+      .replace(/\n?```\s*$/i, '');
     const jsonMatch = jsonText.match(/\[\s*{[\s\S]*}\s*\]/);
     if (jsonMatch) {
       jsonText = jsonMatch[0];
@@ -2153,7 +2158,7 @@ ${modifyInstruction}
 
     setTimeout(() => {
       showProgress.value = false;
-    showFieldModifyDialog.value = false;
+      showFieldModifyDialog.value = false;
       window.toastr.success('✅ AI 修改完成！');
     }, 800);
   } catch (error: any) {
@@ -2171,13 +2176,13 @@ function generateFromFields() {
 
   // 自动生成完整的 findRegex（智能分配字段到标记）
   const totalFields = fields.length;
-  
+
   if (totalFields === 0) {
     config.value.findRegex = '<-CHARACTER_STATUS->';
     console.log('⚠️ 没有字段，使用默认标记');
     return;
   }
-  
+
   if (totalFields <= 4) {
     // 字段少于等于4个，使用单标记
     config.value.findRegex = `<-CHARACTER_STATUS->[\\r\\n]*\\|${fields.map(() => '([^|]+)').join('\\|')}\\|[\\r\\n]*`;
@@ -2187,34 +2192,48 @@ function generateFromFields() {
     // 字段多于4个，使用双标记结构
     // 智能决定每行字段数（优先4个，但会根据总数调整）
     const perLine = totalFields <= 8 ? Math.ceil(totalFields / 2) : 4;
-    
+
     // 第一个标记分配的字段数（优先均分，但第一个标记最多放总数的一半）
-    const firstHalf = Math.min(
-      Math.ceil(totalFields / 2),
-      totalFields <= 12 ? 4 : Math.ceil(totalFields / 3)
-    );
-    
+    const firstHalf = Math.min(Math.ceil(totalFields / 2), totalFields <= 12 ? 4 : Math.ceil(totalFields / 3));
+
     const lines: string[] = [];
-    
+
     // 第一个标记 + 前半部分字段
     lines.push('<-ENVIRONMENT_DATA->[\\r\\n]*');
     for (let i = 0; i < firstHalf; i += perLine) {
       const count = Math.min(perLine, firstHalf - i);
-      lines.push('\\|' + fields.slice(i, i + count).map(() => '([^|]+)').join('\\|') + '\\|[\\r\\n]*');
+      lines.push(
+        '\\|' +
+          fields
+            .slice(i, i + count)
+            .map(() => '([^|]+)')
+            .join('\\|') +
+          '\\|[\\r\\n]*',
+      );
     }
-    
+
     // 第二个标记 + 后半部分字段（每perLine个一行）
     lines.push('<-CHARACTER_STATUS->[\\r\\n]*');
     for (let i = firstHalf; i < totalFields; i += perLine) {
       const count = Math.min(perLine, totalFields - i);
-      lines.push('\\|' + fields.slice(i, i + count).map(() => '([^|]+)').join('\\|') + '\\|[\\r\\n]*');
+      lines.push(
+        '\\|' +
+          fields
+            .slice(i, i + count)
+            .map(() => '([^|]+)')
+            .join('\\|') +
+          '\\|[\\r\\n]*',
+      );
     }
-    
+
     config.value.findRegex = lines.join('');
-    
+
     console.log('✅ 自动生成的 findRegex (双标记):', config.value.findRegex);
     console.log('📊 字段数量:', totalFields);
-    console.log('📊 分配方案:', `第一个标记: ${firstHalf}个字段, 第二个标记: ${totalFields - firstHalf}个字段, 每行: ${perLine}个`);
+    console.log(
+      '📊 分配方案:',
+      `第一个标记: ${firstHalf}个字段, 第二个标记: ${totalFields - firstHalf}个字段, 每行: ${perLine}个`,
+    );
   }
 
   // 生成 HTML
@@ -2704,7 +2723,7 @@ FILE_END
     const generatedFiles = matches.map(m => m[1].trim().replace(/^\.\//, ''));
     const requiredFiles = ['index.html', 'style.css', 'script.js'];
     const missingFiles = requiredFiles.filter(f => !generatedFiles.includes(f));
-    
+
     if (missingFiles.length > 0) {
       progressDialogRef.value?.addDetail(`⚠️ 警告: AI 未生成以下文件: ${missingFiles.join(', ')}`);
       window.toastr.warning(`AI 可能只生成了部分文件，缺少: ${missingFiles.join(', ')}`, '', {
@@ -2821,16 +2840,16 @@ ${jsFile?.content || ''}
   // 如果 findRegex 中已经包含捕获组，直接使用它
   // 否则，自动在后面追加字段的捕获组
   let regexPattern = config.value.findRegex;
-  
+
   // 检查 findRegex 中是否已经包含捕获组
   const existingCaptureGroups = (regexPattern.match(/\([^)]+\)/g) || []).length;
   const fieldCount = config.value.fields.length;
-  
+
   if (existingCaptureGroups === 0) {
     // 没有捕获组，需要自动生成
     regexPattern = `${regexPattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\r\\n]*${Array(fieldCount)
-    .fill('\\|([^|]+)')
-    .join('')}\\|[\\r\\n]*`;
+      .fill('\\|([^|]+)')
+      .join('')}\\|[\\r\\n]*`;
   }
   // 如果已经有捕获组，直接使用（用户自定义的正则）
 

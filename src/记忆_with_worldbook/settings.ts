@@ -182,7 +182,7 @@ export const useSettingsStore = defineStore('settings', () => {
   };
 
   watch(settings, debouncedSave, { immediate: false, deep: true });
-  
+
   // 页面卸载前立即保存
   if (typeof window !== 'undefined') {
     window.addEventListener('pagehide', () => {

@@ -111,4 +111,3 @@ export function setGlobalScriptId(id: string): void {
 export function getGlobalScriptId(): string | null {
   return globalScriptId;
 }
-

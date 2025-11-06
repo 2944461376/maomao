@@ -120,9 +120,9 @@ const tabs = [
   { key: 'help', label: '帮助', icon: 'fa-solid fa-question-circle' },
 ];
 
-const activeTab = ref<'settings' | 'summary' | 'table' | 'greetings' | 'status' | 'regex' | 'project' | 'tools' | 'mvu' | 'help'>(
-  'settings',
-);
+const activeTab = ref<
+  'settings' | 'summary' | 'table' | 'greetings' | 'status' | 'regex' | 'project' | 'tools' | 'mvu' | 'help'
+>('settings');
 
 // 组件映射
 const componentMap = {

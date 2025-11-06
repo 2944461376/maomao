@@ -10,13 +10,13 @@ async function fetchWithProxy(url: string, options: RequestInit = {}) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(typeof SillyTavern !== 'undefined' && SillyTavern.getRequestHeaders ? SillyTavern.getRequestHeaders() : {})
+        ...(typeof SillyTavern !== 'undefined' && SillyTavern.getRequestHeaders ? SillyTavern.getRequestHeaders() : {}),
       },
       body: JSON.stringify({
         url: url,
         method: options.method || 'GET',
-        headers: options.headers || {}
-      })
+        headers: options.headers || {},
+      }),
     });
 
     if (response.ok) {
@@ -76,7 +76,7 @@ export async function fetchAvailableModels(settings: APISettings): Promise<strin
     modelEndpoint,
     endpoint + (endpoint.endsWith('/') ? 'models' : '/models'),
     new URL(modelEndpoint).origin + '/v1/models',
-    new URL(modelEndpoint).origin + '/models'
+    new URL(modelEndpoint).origin + '/models',
   ];
 
   console.log('🔍 尝试的模型端点:', possibleEndpoints);
@@ -92,8 +92,8 @@ export async function fetchAvailableModels(settings: APISettings): Promise<strin
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${settings.api_key}`
-        }
+          Authorization: `Bearer ${settings.api_key}`,
+        },
       });
 
       console.log(`📊 响应状态: ${response.status} ${response.statusText}`);
@@ -146,7 +146,6 @@ export async function fetchAvailableModels(settings: APISettings): Promise<strin
 
       errors.push(`${endpoint}: 响应格式无法识别 - ${JSON.stringify(data).substring(0, 100)}`);
       console.log('❌ 响应格式未识别');
-
     } catch (error) {
       const errorMessage = (error as Error).message;
       if (errorMessage.includes('Failed to fetch') || errorMessage.includes('CORS')) {
@@ -244,7 +243,7 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
     model: settings.model,
     messages: [{ role: 'user', content: prompt }],
     max_tokens: settings.max_tokens,
-    temperature: settings.temperature
+    temperature: settings.temperature,
   });
 
   try {
@@ -252,7 +251,7 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${settings.api_key}`
+        Authorization: `Bearer ${settings.api_key}`,
       },
       body: JSON.stringify({
         model: settings.model,
@@ -261,8 +260,8 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
         temperature: settings.temperature,
         top_p: settings.top_p,
         presence_penalty: settings.presence_penalty,
-        frequency_penalty: settings.frequency_penalty
-      })
+        frequency_penalty: settings.frequency_penalty,
+      }),
     });
   } catch (error) {
     console.error('fetch 调用失败:', error);
@@ -301,7 +300,7 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
       status: response.status,
       statusText: response.statusText,
       errorMessage,
-      errorDetails: errorDetails.substring(0, 500)
+      errorDetails: errorDetails.substring(0, 500),
     });
 
     throw new Error(userFriendlyMessage);

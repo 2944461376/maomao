@@ -7,9 +7,9 @@ async function proxyFetch(url: string, options: RequestInit = {}): Promise<Respo
   try {
     // 方法 1: 尝试通过酒馆后端代理（如果酒馆在本地运行）
     const tavernOrigin = window.location.origin; // 例如 http://localhost:8000
-    
+
     console.log('🔄 尝试通过酒馆后端代理:', tavernOrigin);
-    
+
     const proxyResponse = await fetch(`${tavernOrigin}/api/proxy`, {
       method: 'POST',
       headers: {
@@ -27,7 +27,7 @@ async function proxyFetch(url: string, options: RequestInit = {}): Promise<Respo
       console.log('✅ 成功通过酒馆后端代理');
       return proxyResponse;
     }
-    
+
     console.log('⚠️ 酒馆代理不可用，尝试直接请求');
   } catch (proxyError) {
     console.log('⚠️ 酒馆代理失败，尝试直接请求:', proxyError);
@@ -123,7 +123,7 @@ export async function fetchAvailableModels(): Promise<string[]> {
         const models = data.data.map((model: any) => model.id || model.name || model).filter(Boolean);
         console.log(`🎉 成功获取 ${models.length} 个模型:`, models);
         if (models.length > 0) {
-        return models;
+          return models;
         }
       }
 
@@ -141,7 +141,7 @@ export async function fetchAvailableModels(): Promise<string[]> {
         const models = data.models.map((model: any) => model.id || model.name || model).filter(Boolean);
         console.log(`🎉 成功获取 ${models.length} 个模型:`, models);
         if (models.length > 0) {
-        return models;
+          return models;
         }
       }
 
@@ -161,7 +161,8 @@ export async function fetchAvailableModels(): Promise<string[]> {
   console.error('❌ 所有端点都失败了，详细错误:');
   errors.forEach((err, i) => console.error(`  ${i + 1}. ${err}`));
 
-  let errorMessage = `无法从 API 获取模型列表。尝试了 ${possibleEndpoints.length} 个端点均失败。\n\n` +
+  let errorMessage =
+    `无法从 API 获取模型列表。尝试了 ${possibleEndpoints.length} 个端点均失败。\n\n` +
     `详细错误信息：\n${errors.join('\n\n')}\n\n` +
     `请检查：\n` +
     `1. API 端点是否正确（当前：${baseUrl}）\n` +
@@ -169,7 +170,8 @@ export async function fetchAvailableModels(): Promise<string[]> {
     `3. 该 API 是否支持 /v1/models 接口\n`;
 
   if (hasCorsError) {
-    errorMessage += `\n⚠️ 检测到 CORS 错误：\n` +
+    errorMessage +=
+      `\n⚠️ 检测到 CORS 错误：\n` +
       `这是因为你的 API 服务器（${new URL(baseUrl).origin}）没有配置 CORS 头。\n` +
       `解决方案：\n` +
       `• 在 Zeabur 项目设置中添加环境变量启用 CORS\n` +
@@ -298,7 +300,7 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
   if (!response.ok) {
     let errorMessage = `API 请求失败: ${response.status}`;
     let errorDetails = '';
-    
+
     try {
       const error = await response.json();
       errorMessage = error.error?.message || error.message || errorMessage;
@@ -309,7 +311,7 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
         errorDetails = await response.text();
       } catch {}
     }
-    
+
     // 根据状态码提供更具体的错误信息
     let userFriendlyMessage = errorMessage;
     if (response.status === 500) {
@@ -321,14 +323,14 @@ ${messages.map(msg => `[${msg.role}]: ${msg.message}`).join('\n\n')}
     } else if (response.status === 400) {
       userFriendlyMessage = `API 请求参数错误 (400)：${errorMessage}`;
     }
-    
+
     console.error('❌ API 请求失败详情:', {
       status: response.status,
       statusText: response.statusText,
       errorMessage,
-      errorDetails: errorDetails.substring(0, 500)
+      errorDetails: errorDetails.substring(0, 500),
     });
-    
+
     throw new Error(userFriendlyMessage);
   }
 

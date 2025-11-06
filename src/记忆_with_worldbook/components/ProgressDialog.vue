@@ -30,14 +30,7 @@
       "
     >
       <!-- 标题 -->
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 24px;
-        "
-      >
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px">
         <div
           class="spinner"
           style="
@@ -49,14 +42,7 @@
             animation: spin 0.8s linear infinite;
           "
         ></div>
-        <h3
-          style="
-            margin: 0;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 600;
-          "
-        >
+        <h3 style="margin: 0; color: #fff; font-size: 18px; font-weight: 600">
           {{ title }}
         </h3>
       </div>
@@ -87,15 +73,7 @@
       </div>
 
       <!-- 当前阶段 -->
-      <div
-        class="current-stage"
-        style="
-          color: #e0e0e0;
-          font-size: 14px;
-          margin-bottom: 12px;
-          min-height: 20px;
-        "
-      >
+      <div class="current-stage" style="color: #e0e0e0; font-size: 14px; margin-bottom: 12px; min-height: 20px">
         {{ currentMessage }}
       </div>
 
@@ -122,33 +100,12 @@
       </div>
 
       <!-- 百分比和耗时 -->
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <div
-          class="progress-percent"
-          style="
-            color: #4a9eff;
-            font-size: 16px;
-            font-weight: 600;
-          "
-        >
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <div class="progress-percent" style="color: #4a9eff; font-size: 16px; font-weight: 600">
           {{ Math.round(progress) }}%
         </div>
 
-        <div
-          class="elapsed-time"
-          style="
-            color: #888;
-            font-size: 12px;
-          "
-        >
-          已耗时: {{ elapsedSeconds }}秒
-        </div>
+        <div class="elapsed-time" style="color: #888; font-size: 12px">已耗时: {{ elapsedSeconds }}秒</div>
       </div>
 
       <!-- 取消按钮（可选） -->
@@ -324,4 +281,3 @@ defineExpose({
   background: #5ab0ff;
 }
 </style>
-

@@ -127,13 +127,13 @@
         "
       >
         <h4 style="color: #4a9eff; margin-top: 0; margin-bottom: 15px; font-size: 16px">📋 功能简介</h4>
-          <ul style="margin: 5px 0; padding-left: 20px">
+        <ul style="margin: 5px 0; padding-left: 20px">
           <li><strong>总结：</strong>自动/手动总结对话，存入世界书</li>
           <li><strong>写卡辅助：</strong>生成角色卡、世界书条目，支持流式传输和 AI 修改</li>
           <li><strong>状态栏生成：</strong>可视化配置状态栏，生成正则 JSON 和世界书条目</li>
           <li><strong>MVU Beta：</strong>生成变量结构、提示词模板、$meta 配置</li>
           <li><strong>其他：</strong>去八股、正则界面生成、前端项目管理、表格生成</li>
-          </ul>
+        </ul>
 
         <h4 style="color: #4a9eff; margin-top: 25px; margin-bottom: 15px; font-size: 16px">💡 使用方法</h4>
         <div
@@ -154,20 +154,20 @@
                 <li><code>https://api.openai.com/v1</code> → 直接使用</li>
                 <li><code>https://your-proxy.com/v1/chat/completions</code> → 直接使用</li>
               </ul>
-          </div>
+            </div>
             <div style="margin-bottom: 5px">
               <strong>OpenAI 官方示例：</strong
               ><code style="background: rgba(220, 53, 69, 0.2); padding: 2px 6px; border-radius: 4px"
                 >https://api.openai.com</code
               >
-        </div>
+            </div>
             <div>
               <strong>Gemini AI Studio：</strong
               ><code style="background: rgba(220, 53, 69, 0.2); padding: 2px 6px; border-radius: 4px"
                 >https://generativelanguage.googleapis.com/v1beta/openai/</code
               >
+            </div>
           </div>
-        </div>
         </div>
         <ul style="margin: 5px 0; padding-left: 20px">
           <li><strong>导入：</strong>酒馆助手 → 脚本库 → 导入 → 全局脚本</li>
@@ -479,7 +479,7 @@
               <li>反八股工具优化：适度清理，保持原文信息量和长度</li>
             </ul>
           </div>
-          </div>
+        </div>
 
         <!-- v1.15 -->
         <div style="margin-bottom: 25px">

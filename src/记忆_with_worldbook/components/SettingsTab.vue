@@ -13,24 +13,34 @@
           align-items: center;
           justify-content: space-between;
           padding: 20px 28px;
-          background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(30, 30, 30, 0.95) 0%,
+            rgba(38, 38, 38, 0.9) 50%,
+            rgba(30, 30, 30, 0.95) 100%
+          );
           backdrop-filter: blur(12px);
           border-radius: 14px;
           margin-bottom: 20px;
           border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2);
           position: relative;
           overflow: hidden;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         "
         @click="toggleSection('api')"
         @mouseenter="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'translateX(4px) scale(1.005)';
           ($event.currentTarget as HTMLElement).style.borderLeft = '3px solid rgba(255, 193, 7, 0.6)';
         "
         @mouseleave="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'none';
           ($event.currentTarget as HTMLElement).style.borderLeft = '1px solid rgba(255, 255, 255, 0.06)';
         "
@@ -61,305 +71,317 @@
       </div>
 
       <div v-show="expandedSections['api']">
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">API 提供商</label>
-        <select
-          v-model="settings.api_provider"
-          @change="handleProviderChange"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-            cursor: pointer;
-          "
-        >
-          <option value="openai">OpenAI</option>
-          <option value="gemini">Gemini AI Studio</option>
-        </select>
-      </div>
-
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
-          API 端点
-          <span style="color: #888; font-size: 11px; margin-left: 8px">
-            (兼容酒馆格式，填写 base URL 即可)
-          </span>
-        </label>
-        <input
-          v-model="settings.api_endpoint"
-          type="text"
-          placeholder="https://你的服务器/v1"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <div style="margin-top: 8px; padding: 8px 12px; background: rgba(74, 158, 255, 0.1); border-radius: 4px; border-left: 3px solid #4a9eff;">
-          <div style="color: #4a9eff; font-size: 12px; font-weight: bold; margin-bottom: 4px;">📌 常见端点示例（与酒馆格式一致）：</div>
-          <div style="color: #999; font-size: 11px; line-height: 1.6;">
-            • <strong>OpenAI 官方:</strong> https://api.openai.com/v1<br>
-            • <strong>Gemini AI Studio:</strong> https://generativelanguage.googleapis.com/v1beta/openai/<br>
-            • <strong>NewAPI / One API:</strong> https://你的服务器/v1<br>
-            • <strong>本地模型 (Ollama):</strong> http://localhost:11434/v1<br>
-            💡 <strong>提示：</strong>会自动补全 /chat/completions，也可以直接填完整路径
-          </div>
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">API 提供商</label>
+          <select
+            v-model="settings.api_provider"
+            @change="handleProviderChange"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+              cursor: pointer;
+            "
+          >
+            <option value="openai">OpenAI</option>
+            <option value="gemini">Gemini AI Studio</option>
+          </select>
         </div>
-      </div>
 
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">API Key</label>
-        <input
-          v-model="settings.api_key"
-          type="password"
-          placeholder="sk-..."
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-
-      <div class="form-group">
-        <div class="model-controls" style="display: flex; flex-direction: column; gap: 10px">
+        <div class="form-group" style="margin-bottom: 18px !important">
           <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
-            模型名称
-            <span v-if="available_models.length === 0" style="color: #888; font-size: 11px; margin-left: 8px">
-              (手动输入模型名称，如 gpt-4o-mini)
-            </span>
+            API 端点
+            <span style="color: #888; font-size: 11px; margin-left: 8px"> (兼容酒馆格式，填写 base URL 即可) </span>
           </label>
-          <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
-            <button
-              :disabled="loading_models"
-              class="fetch-button"
-              style="
-                flex: 1;
-                min-width: 120px;
-                padding: 12px 16px;
-                border: 1px solid #5aaeff;
-                border-radius: 6px;
-                cursor: pointer;
-                font-weight: 500;
-                font-size: 13px;
-                transition: all 0.2s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                background: linear-gradient(135deg, #4a9eff 0%, #3a8edf 100%);
-                box-shadow: 0 2px 8px rgba(74, 158, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-                color: white;
-              "
-              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(74, 158, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
-              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(74, 158, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
-              @click="handle_fetch_models"
-            >
-              {{ loading_models ? '拉取中...' : '🔍 拉取模型列表' }}
-            </button>
-            <button
-              class="save-button"
-              style="
-                flex: 1;
-                min-width: 120px;
-                padding: 12px 16px;
-                border: 1px solid #28a745;
-                border-radius: 6px;
-                cursor: pointer;
-                font-weight: 500;
-                font-size: 13px;
-                transition: all 0.2s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
-                box-shadow: 0 2px 8px rgba(81, 207, 102, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-                color: white;
-              "
-              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(81, 207, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
-              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(81, 207, 102, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
-              @click="handleSaveApiConfig"
-            >
-              💾 保存配置
-            </button>
+          <input
+            v-model="settings.api_endpoint"
+            type="text"
+            placeholder="https://你的服务器/v1"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <div
+            style="
+              margin-top: 8px;
+              padding: 8px 12px;
+              background: rgba(74, 158, 255, 0.1);
+              border-radius: 4px;
+              border-left: 3px solid #4a9eff;
+            "
+          >
+            <div style="color: #4a9eff; font-size: 12px; font-weight: bold; margin-bottom: 4px">
+              📌 常见端点示例（与酒馆格式一致）：
+            </div>
+            <div style="color: #999; font-size: 11px; line-height: 1.6">
+              • <strong>OpenAI 官方:</strong> https://api.openai.com/v1<br />
+              • <strong>Gemini AI Studio:</strong> https://generativelanguage.googleapis.com/v1beta/openai/<br />
+              • <strong>NewAPI / One API:</strong> https://你的服务器/v1<br />
+              • <strong>本地模型 (Ollama):</strong> http://localhost:11434/v1<br />
+              💡 <strong>提示：</strong>会自动补全 /chat/completions，也可以直接填完整路径
+            </div>
           </div>
         </div>
-        <input
-          v-if="available_models.length === 0"
-          v-model="settings.model"
-          type="text"
-          placeholder="gpt-4o-mini 或 deepseek-chat 等"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <select
-          v-else
-          v-model="settings.model"
-          class="model-select"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        >
-          <option v-for="model in available_models" :key="model" :value="model">{{ model }}</option>
-        </select>
-      </div>
 
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px"
-          >最大 Token 数（建议4000以上获得更详细的总结）</label
-        >
-        <input
-          v-model.number="settings.max_tokens"
-          type="number"
-          min="100"
-          max="16000"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
-          Temperature (温度) <span style="color: #888; font-size: 11px">(0-2，推荐 0.7)</span>
-        </label>
-        <input
-          v-model.number="settings.temperature"
-          type="number"
-          min="0"
-          max="2"
-          step="0.1"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <div style="margin-top: 4px; color: #888; font-size: 11px;">
-          较高值（如 0.8）使输出更随机，较低值（如 0.2）使其更确定
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">API Key</label>
+          <input
+            v-model="settings.api_key"
+            type="password"
+            placeholder="sk-..."
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
         </div>
-      </div>
 
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
-          Top P (核采样) <span style="color: #888; font-size: 11px">(0-1，推荐 1.0)</span>
-        </label>
-        <input
-          v-model.number="settings.top_p"
-          type="number"
-          min="0"
-          max="1"
-          step="0.01"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <div style="margin-top: 4px; color: #888; font-size: 11px;">
-          ⚠️ 一般建议只改 Temperature 或 Top P，不要同时修改
+        <div class="form-group">
+          <div class="model-controls" style="display: flex; flex-direction: column; gap: 10px">
+            <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
+              模型名称
+              <span v-if="available_models.length === 0" style="color: #888; font-size: 11px; margin-left: 8px">
+                (手动输入模型名称，如 gpt-4o-mini)
+              </span>
+            </label>
+            <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
+              <button
+                :disabled="loading_models"
+                class="fetch-button"
+                style="
+                  flex: 1;
+                  min-width: 120px;
+                  padding: 12px 16px;
+                  border: 1px solid #5aaeff;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  font-weight: 500;
+                  font-size: 13px;
+                  transition: all 0.2s;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 6px;
+                  background: linear-gradient(135deg, #4a9eff 0%, #3a8edf 100%);
+                  box-shadow:
+                    0 2px 8px rgba(74, 158, 255, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                  color: white;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(74, 158, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(74, 158, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
+                @click="handle_fetch_models"
+              >
+                {{ loading_models ? '拉取中...' : '🔍 拉取模型列表' }}
+              </button>
+              <button
+                class="save-button"
+                style="
+                  flex: 1;
+                  min-width: 120px;
+                  padding: 12px 16px;
+                  border: 1px solid #28a745;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  font-weight: 500;
+                  font-size: 13px;
+                  transition: all 0.2s;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 6px;
+                  background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+                  box-shadow:
+                    0 2px 8px rgba(81, 207, 102, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                  color: white;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(81, 207, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(81, 207, 102, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15)'"
+                @click="handleSaveApiConfig"
+              >
+                💾 保存配置
+              </button>
+            </div>
+          </div>
+          <input
+            v-if="available_models.length === 0"
+            v-model="settings.model"
+            type="text"
+            placeholder="gpt-4o-mini 或 deepseek-chat 等"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <select
+            v-else
+            v-model="settings.model"
+            class="model-select"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          >
+            <option v-for="model in available_models" :key="model" :value="model">{{ model }}</option>
+          </select>
         </div>
-      </div>
 
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
-          Presence Penalty (存在惩罚) <span style="color: #888; font-size: 11px">(-2.0 to 2.0，推荐 0)</span>
-        </label>
-        <input
-          v-model.number="settings.presence_penalty"
-          type="number"
-          min="-2"
-          max="2"
-          step="0.1"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <div style="margin-top: 4px; color: #888; font-size: 11px;">
-          正值根据标记是否出现过来惩罚，增加讨论新主题的可能性
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px"
+            >最大 Token 数（建议4000以上获得更详细的总结）</label
+          >
+          <input
+            v-model.number="settings.max_tokens"
+            type="number"
+            min="100"
+            max="16000"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
         </div>
-      </div>
 
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
-          Frequency Penalty (频率惩罚) <span style="color: #888; font-size: 11px">(-2.0 to 2.0，推荐 0)</span>
-        </label>
-        <input
-          v-model.number="settings.frequency_penalty"
-          type="number"
-          min="-2"
-          max="2"
-          step="0.1"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <div style="margin-top: 4px; color: #888; font-size: 11px;">
-          正值根据标记频率来惩罚，降低逐字重复同一行的可能性
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
+            Temperature (温度) <span style="color: #888; font-size: 11px">(0-2，推荐 0.7)</span>
+          </label>
+          <input
+            v-model.number="settings.temperature"
+            type="number"
+            min="0"
+            max="2"
+            step="0.1"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <div style="margin-top: 4px; color: #888; font-size: 11px">
+            较高值（如 0.8）使输出更随机，较低值（如 0.2）使其更确定
+          </div>
         </div>
-      </div>
+
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
+            Top P (核采样) <span style="color: #888; font-size: 11px">(0-1，推荐 1.0)</span>
+          </label>
+          <input
+            v-model.number="settings.top_p"
+            type="number"
+            min="0"
+            max="1"
+            step="0.01"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <div style="margin-top: 4px; color: #888; font-size: 11px">
+            ⚠️ 一般建议只改 Temperature 或 Top P，不要同时修改
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
+            Presence Penalty (存在惩罚) <span style="color: #888; font-size: 11px">(-2.0 to 2.0，推荐 0)</span>
+          </label>
+          <input
+            v-model.number="settings.presence_penalty"
+            type="number"
+            min="-2"
+            max="2"
+            step="0.1"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <div style="margin-top: 4px; color: #888; font-size: 11px">
+            正值根据标记是否出现过来惩罚，增加讨论新主题的可能性
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">
+            Frequency Penalty (频率惩罚) <span style="color: #888; font-size: 11px">(-2.0 to 2.0，推荐 0)</span>
+          </label>
+          <input
+            v-model.number="settings.frequency_penalty"
+            type="number"
+            min="-2"
+            max="2"
+            step="0.1"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <div style="margin-top: 4px; color: #888; font-size: 11px">
+            正值根据标记频率来惩罚，降低逐字重复同一行的可能性
+          </div>
+        </div>
       </div>
     </div>
 
@@ -376,24 +398,34 @@
           align-items: center;
           justify-content: space-between;
           padding: 20px 28px;
-          background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(30, 30, 30, 0.95) 0%,
+            rgba(38, 38, 38, 0.9) 50%,
+            rgba(30, 30, 30, 0.95) 100%
+          );
           backdrop-filter: blur(12px);
           border-radius: 14px;
           margin-bottom: 20px;
           border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2);
           position: relative;
           overflow: hidden;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         "
         @click="toggleSection('autoSummary')"
         @mouseenter="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'translateX(4px) scale(1.005)';
           ($event.currentTarget as HTMLElement).style.borderLeft = '3px solid rgba(255, 193, 7, 0.6)';
         "
         @mouseleave="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'none';
           ($event.currentTarget as HTMLElement).style.borderLeft = '1px solid rgba(255, 255, 255, 0.06)';
         "
@@ -424,89 +456,89 @@
       </div>
 
       <div v-show="expandedSections['autoSummary']">
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label
-          class="checkbox-label"
-          style="display: flex; align-items: center; gap: 8px; color: #ccc; font-size: 13px"
-        >
-          <input v-model="settings.auto_summarize_enabled" type="checkbox" style="width: 16px; height: 16px" />
-          启用自动总结
-        </label>
-      </div>
-      <div v-if="settings.auto_summarize_enabled" class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">每多少楼层总结一次</label>
-        <input
-          v-model.number="settings.summarize_interval"
-          type="number"
-          min="1"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-        <div style="margin-top: 10px; display: flex; gap: 10px">
-          <button
-            style="
-              padding: 8px 16px;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              border: none;
-              border-radius: 6px;
-              color: white;
-              font-size: 12px;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            "
-            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.3)'"
-            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.2)'"
-            @click="handleSaveSettings"
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label
+            class="checkbox-label"
+            style="display: flex; align-items: center; gap: 8px; color: #ccc; font-size: 13px"
           >
-            💾 保存设置
-          </button>
-          <button
-            style="
-              padding: 8px 16px;
-              background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-              border: none;
-              border-radius: 6px;
-              color: white;
-              font-size: 12px;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            "
-            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.3)'"
-            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.2)'"
-            @click="handleReloadSettings"
-          >
-            🔄 重新加载
-          </button>
-          <button
-            style="
-              padding: 8px 16px;
-              background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-              border: none;
-              border-radius: 6px;
-              color: white;
-              font-size: 12px;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            "
-            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.3)'"
-            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.2)'"
-            @click="handleResetAutoSummaryStart"
-          >
-            🔄 重置起始楼层
-          </button>
+            <input v-model="settings.auto_summarize_enabled" type="checkbox" style="width: 16px; height: 16px" />
+            启用自动总结
+          </label>
         </div>
-      </div>
+        <div v-if="settings.auto_summarize_enabled" class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">每多少楼层总结一次</label>
+          <input
+            v-model.number="settings.summarize_interval"
+            type="number"
+            min="1"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+          <div style="margin-top: 10px; display: flex; gap: 10px">
+            <button
+              style="
+                padding: 8px 16px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+                border-radius: 6px;
+                color: white;
+                font-size: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+              onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.3)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.2)'"
+              @click="handleSaveSettings"
+            >
+              💾 保存设置
+            </button>
+            <button
+              style="
+                padding: 8px 16px;
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                border: none;
+                border-radius: 6px;
+                color: white;
+                font-size: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+              onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.3)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.2)'"
+              @click="handleReloadSettings"
+            >
+              🔄 重新加载
+            </button>
+            <button
+              style="
+                padding: 8px 16px;
+                background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+                border: none;
+                border-radius: 6px;
+                color: white;
+                font-size: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+              onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.3)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.2)'"
+              @click="handleResetAutoSummaryStart"
+            >
+              🔄 重置起始楼层
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -523,24 +555,34 @@
           align-items: center;
           justify-content: space-between;
           padding: 20px 28px;
-          background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(30, 30, 30, 0.95) 0%,
+            rgba(38, 38, 38, 0.9) 50%,
+            rgba(30, 30, 30, 0.95) 100%
+          );
           backdrop-filter: blur(12px);
           border-radius: 14px;
           margin-bottom: 20px;
           border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2);
           position: relative;
           overflow: hidden;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         "
         @click="toggleSection('manualSummary')"
         @mouseenter="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'translateX(4px) scale(1.005)';
           ($event.currentTarget as HTMLElement).style.borderLeft = '3px solid rgba(255, 193, 7, 0.6)';
         "
         @mouseleave="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'none';
           ($event.currentTarget as HTMLElement).style.borderLeft = '1px solid rgba(255, 255, 255, 0.06)';
         "
@@ -571,95 +613,97 @@
       </div>
 
       <div v-show="expandedSections['manualSummary']">
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">开始楼层</label>
-        <input
-          v-model.number="settings.start_message_id"
-          type="number"
-          min="0"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">结束楼层</label>
-        <input
-          v-model.number="settings.end_message_id"
-          type="number"
-          min="0"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-      <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
-        <button
-          class="action-button test-button"
-          :disabled="is_summarizing"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #4a4a4a;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: #3a3a3a;
-            color: #e0e0e0;
-          "
-          @click="handle_test_connection"
-        >
-          <i class="fa-solid fa-plug"></i> 测试连接
-        </button>
-        <button
-          class="action-button summarize-button"
-          :disabled="is_summarizing || !settings.api_key"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #5aaeff;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #4a9eff 0%, #3a8edf 100%);
-            box-shadow: 0 2px 8px rgba(74, 158, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            color: white;
-          "
-          @click="handle_summarize"
-        >
-          <i v-if="!is_summarizing" class="fa-solid fa-magic"></i>
-          <i v-else class="fa-solid fa-spinner fa-spin"></i>
-          {{ is_summarizing ? '正在总结...' : '手动总结' }}
-        </button>
-      </div>
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">开始楼层</label>
+          <input
+            v-model.number="settings.start_message_id"
+            type="number"
+            min="0"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+        </div>
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">结束楼层</label>
+          <input
+            v-model.number="settings.end_message_id"
+            type="number"
+            min="0"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
+        </div>
+        <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
+          <button
+            class="action-button test-button"
+            :disabled="is_summarizing"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #4a4a4a;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: #3a3a3a;
+              color: #e0e0e0;
+            "
+            @click="handle_test_connection"
+          >
+            <i class="fa-solid fa-plug"></i> 测试连接
+          </button>
+          <button
+            class="action-button summarize-button"
+            :disabled="is_summarizing || !settings.api_key"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #5aaeff;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: linear-gradient(135deg, #4a9eff 0%, #3a8edf 100%);
+              box-shadow:
+                0 2px 8px rgba(74, 158, 255, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+              color: white;
+            "
+            @click="handle_summarize"
+          >
+            <i v-if="!is_summarizing" class="fa-solid fa-magic"></i>
+            <i v-else class="fa-solid fa-spinner fa-spin"></i>
+            {{ is_summarizing ? '正在总结...' : '手动总结' }}
+          </button>
+        </div>
       </div>
     </div>
 
@@ -676,24 +720,34 @@
           align-items: center;
           justify-content: space-between;
           padding: 20px 28px;
-          background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(30, 30, 30, 0.95) 0%,
+            rgba(38, 38, 38, 0.9) 50%,
+            rgba(30, 30, 30, 0.95) 100%
+          );
           backdrop-filter: blur(12px);
           border-radius: 14px;
           margin-bottom: 20px;
           border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2);
           position: relative;
           overflow: hidden;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         "
         @click="toggleSection('tableGeneration')"
         @mouseenter="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'translateX(4px) scale(1.005)';
           ($event.currentTarget as HTMLElement).style.borderLeft = '3px solid rgba(255, 193, 7, 0.6)';
         "
         @mouseleave="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'none';
           ($event.currentTarget as HTMLElement).style.borderLeft = '1px solid rgba(255, 255, 255, 0.06)';
         "
@@ -724,241 +778,245 @@
       </div>
 
       <div v-show="expandedSections['tableGeneration']">
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">开始楼层</label>
-        <input
-          v-model.number="settings.table_start_message_id"
-          type="number"
-          min="0"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">结束楼层</label>
-        <input
-          v-model.number="settings.table_end_message_id"
-          type="number"
-          min="0"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">表格列头模板</label>
-        <div style="display: flex; gap: 8px; margin-bottom: 8px">
-          <select
-            v-model="selectedTemplate"
-            style="
-              flex: 1;
-              padding: 8px 12px;
-              background: #2a2a2a;
-              border: 1px solid #3a3a3a;
-              border-radius: 6px;
-              color: #e0e0e0;
-              font-size: 13px;
-            "
-            @change="loadTemplate"
-          >
-            <option value="">选择模板...</option>
-            <option v-for="(template, index) in headerTemplates" :key="index" :value="index">
-              {{ template.name }}
-            </option>
-          </select>
-          <button
-            style="
-              padding: 8px 12px;
-              background: #4a9eff;
-              border: none;
-              border-radius: 6px;
-              color: white;
-              cursor: pointer;
-              font-size: 12px;
-              white-space: nowrap;
-            "
-            @click="showAddTemplateDialog"
-          >
-            <i class="fa-solid fa-plus"></i> 添加
-          </button>
-        </div>
-        <div v-if="selectedTemplate !== ''" style="display: flex; gap: 8px">
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">开始楼层</label>
           <input
-            v-model="currentTemplate.name"
-            type="text"
-            placeholder="模板名称"
+            v-model.number="settings.table_start_message_id"
+            type="number"
+            min="0"
             style="
-              flex: 1;
-              padding: 8px 12px;
+              width: 100%;
+              padding: 10px 12px;
               background: #2a2a2a;
               border: 1px solid #3a3a3a;
               border-radius: 6px;
               color: #e0e0e0;
               font-size: 13px;
+              transition: border-color 0.2s;
             "
           />
+        </div>
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">结束楼层</label>
           <input
-            v-model="currentTemplate.headers"
-            type="text"
-            placeholder="列头（用逗号分隔）"
+            v-model.number="settings.table_end_message_id"
+            type="number"
+            min="0"
             style="
-              flex: 2;
-              padding: 8px 12px;
+              width: 100%;
+              padding: 10px 12px;
               background: #2a2a2a;
               border: 1px solid #3a3a3a;
               border-radius: 6px;
               color: #e0e0e0;
               font-size: 13px;
+              transition: border-color 0.2s;
             "
           />
-          <button
-            style="
-              padding: 8px 12px;
-              background: #28a745;
-              border: none;
-              border-radius: 6px;
-              color: white;
-              cursor: pointer;
-              font-size: 12px;
-              white-space: nowrap;
-            "
-            @click="saveTemplate"
-          >
-            <i class="fa-solid fa-save"></i> 保存
-          </button>
-          <button
-            style="
-              padding: 8px 12px;
-              background: #dc3545;
-              border: none;
-              border-radius: 6px;
-              color: white;
-              cursor: pointer;
-              font-size: 12px;
-              white-space: nowrap;
-            "
-            @click="deleteTemplate"
-          >
-            <i class="fa-solid fa-trash"></i> 删除
-          </button>
         </div>
-      </div>
-
-      <!-- 生成状态显示 -->
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">生成状态</label>
-        <div style="display: flex; gap: 12px; align-items: center">
-          <div style="display: flex; align-items: center; gap: 6px">
-            <div
-              :style="{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: is_summarizing ? '#ff6b6b' : '#4caf50',
-                transition: 'background-color 0.3s',
-              }"
-            ></div>
-            <span style="color: #ccc; font-size: 12px">总结生成</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 6px">
-            <div
-              :style="{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: is_generating_table ? '#ff6b6b' : '#4caf50',
-                transition: 'background-color 0.3s',
-              }"
-            ></div>
-            <span style="color: #ccc; font-size: 12px">表格生成</span>
-          </div>
-          <div v-if="is_summarizing || is_generating_table" style="margin-left: auto">
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">表格列头模板</label>
+          <div style="display: flex; gap: 8px; margin-bottom: 8px">
+            <select
+              v-model="selectedTemplate"
+              style="
+                flex: 1;
+                padding: 8px 12px;
+                background: #2a2a2a;
+                border: 1px solid #3a3a3a;
+                border-radius: 6px;
+                color: #e0e0e0;
+                font-size: 13px;
+              "
+              @change="loadTemplate"
+            >
+              <option value="">选择模板...</option>
+              <option v-for="(template, index) in headerTemplates" :key="index" :value="index">
+                {{ template.name }}
+              </option>
+            </select>
             <button
               style="
-                padding: 4px 8px;
-                background: #dc3545;
+                padding: 8px 12px;
+                background: #4a9eff;
                 border: none;
-                border-radius: 4px;
+                border-radius: 6px;
                 color: white;
                 cursor: pointer;
-                font-size: 11px;
+                font-size: 12px;
+                white-space: nowrap;
               "
-              @click="stopGeneration"
+              @click="showAddTemplateDialog"
             >
-              <i class="fa-solid fa-stop"></i> 停止生成
+              <i class="fa-solid fa-plus"></i> 添加
+            </button>
+          </div>
+          <div v-if="selectedTemplate !== ''" style="display: flex; gap: 8px">
+            <input
+              v-model="currentTemplate.name"
+              type="text"
+              placeholder="模板名称"
+              style="
+                flex: 1;
+                padding: 8px 12px;
+                background: #2a2a2a;
+                border: 1px solid #3a3a3a;
+                border-radius: 6px;
+                color: #e0e0e0;
+                font-size: 13px;
+              "
+            />
+            <input
+              v-model="currentTemplate.headers"
+              type="text"
+              placeholder="列头（用逗号分隔）"
+              style="
+                flex: 2;
+                padding: 8px 12px;
+                background: #2a2a2a;
+                border: 1px solid #3a3a3a;
+                border-radius: 6px;
+                color: #e0e0e0;
+                font-size: 13px;
+              "
+            />
+            <button
+              style="
+                padding: 8px 12px;
+                background: #28a745;
+                border: none;
+                border-radius: 6px;
+                color: white;
+                cursor: pointer;
+                font-size: 12px;
+                white-space: nowrap;
+              "
+              @click="saveTemplate"
+            >
+              <i class="fa-solid fa-save"></i> 保存
+            </button>
+            <button
+              style="
+                padding: 8px 12px;
+                background: #dc3545;
+                border: none;
+                border-radius: 6px;
+                color: white;
+                cursor: pointer;
+                font-size: 12px;
+                white-space: nowrap;
+              "
+              @click="deleteTemplate"
+            >
+              <i class="fa-solid fa-trash"></i> 删除
             </button>
           </div>
         </div>
-      </div>
 
-      <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
-        <button
-          class="action-button summarize-button"
-          :disabled="is_generating_table || !settings.api_key"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #5aaeff;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #4a9eff 0%, #3a8edf 100%);
-            box-shadow: 0 2px 8px rgba(74, 158, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            color: white;
-          "
-          @click="handle_generate_table"
-        >
-          <i v-if="!is_generating_table" class="fa-solid fa-robot"></i>
-          <i v-else class="fa-solid fa-spinner fa-spin"></i>
-          {{ is_generating_table ? 'AI填充中...' : 'AI填充表格' }}
-        </button>
-        <button
-          class="action-button create-button"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #40c057;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
-            box-shadow: 0 2px 8px rgba(81, 207, 102, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            color: white;
-          "
-          @click="handle_create_table"
-        >
-          <i class="fa-solid fa-plus"></i> 创建空表格
-        </button>
-      </div>
+        <!-- 生成状态显示 -->
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px">生成状态</label>
+          <div style="display: flex; gap: 12px; align-items: center">
+            <div style="display: flex; align-items: center; gap: 6px">
+              <div
+                :style="{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: is_summarizing ? '#ff6b6b' : '#4caf50',
+                  transition: 'background-color 0.3s',
+                }"
+              ></div>
+              <span style="color: #ccc; font-size: 12px">总结生成</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px">
+              <div
+                :style="{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: is_generating_table ? '#ff6b6b' : '#4caf50',
+                  transition: 'background-color 0.3s',
+                }"
+              ></div>
+              <span style="color: #ccc; font-size: 12px">表格生成</span>
+            </div>
+            <div v-if="is_summarizing || is_generating_table" style="margin-left: auto">
+              <button
+                style="
+                  padding: 4px 8px;
+                  background: #dc3545;
+                  border: none;
+                  border-radius: 4px;
+                  color: white;
+                  cursor: pointer;
+                  font-size: 11px;
+                "
+                @click="stopGeneration"
+              >
+                <i class="fa-solid fa-stop"></i> 停止生成
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
+          <button
+            class="action-button summarize-button"
+            :disabled="is_generating_table || !settings.api_key"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #5aaeff;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: linear-gradient(135deg, #4a9eff 0%, #3a8edf 100%);
+              box-shadow:
+                0 2px 8px rgba(74, 158, 255, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+              color: white;
+            "
+            @click="handle_generate_table"
+          >
+            <i v-if="!is_generating_table" class="fa-solid fa-robot"></i>
+            <i v-else class="fa-solid fa-spinner fa-spin"></i>
+            {{ is_generating_table ? 'AI填充中...' : 'AI填充表格' }}
+          </button>
+          <button
+            class="action-button create-button"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #40c057;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+              box-shadow:
+                0 2px 8px rgba(81, 207, 102, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+              color: white;
+            "
+            @click="handle_create_table"
+          >
+            <i class="fa-solid fa-plus"></i> 创建空表格
+          </button>
+        </div>
       </div>
     </div>
 
@@ -975,24 +1033,34 @@
           align-items: center;
           justify-content: space-between;
           padding: 20px 28px;
-          background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%);
+          background: linear-gradient(
+            135deg,
+            rgba(30, 30, 30, 0.95) 0%,
+            rgba(38, 38, 38, 0.9) 50%,
+            rgba(30, 30, 30, 0.95) 100%
+          );
           backdrop-filter: blur(12px);
           border-radius: 14px;
           margin-bottom: 20px;
           border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2);
           position: relative;
           overflow: hidden;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         "
         @click="toggleSection('messageManagement')"
         @mouseenter="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(42, 42, 42, 0.98) 0%, rgba(50, 50, 50, 0.95) 50%, rgba(42, 42, 42, 0.98) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'translateX(4px) scale(1.005)';
           ($event.currentTarget as HTMLElement).style.borderLeft = '3px solid rgba(255, 193, 7, 0.6)';
         "
         @mouseleave="
-          ($event.currentTarget as HTMLElement).style.background = 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
+          ($event.currentTarget as HTMLElement).style.background =
+            'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(38, 38, 38, 0.9) 50%, rgba(30, 30, 30, 0.95) 100%)';
           ($event.currentTarget as HTMLElement).style.transform = 'none';
           ($event.currentTarget as HTMLElement).style.borderLeft = '1px solid rgba(255, 255, 255, 0.06)';
         "
@@ -1023,127 +1091,129 @@
       </div>
 
       <div v-show="expandedSections['messageManagement']">
-      <div class="form-group" style="margin-bottom: 18px !important">
-        <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px"
-          >隐藏楼层范围（如：1-10 或单个楼层如：5）</label
-        >
-        <input
-          v-model="hide_range"
-          type="text"
-          placeholder="1-10"
-          style="
-            width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 6px;
-            color: #e0e0e0;
-            font-size: 13px;
-            transition: border-color 0.2s;
-          "
-        />
-      </div>
-      <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
-        <button
-          class="action-button"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #ff5252;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: #ff6b6b;
-            color: white;
-          "
-          @click="handle_hide_messages"
-        >
-          <i class="fa-solid fa-eye-slash"></i> 隐藏楼层
-        </button>
-        <button
-          class="action-button"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #40c057;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
-            box-shadow: 0 2px 8px rgba(81, 207, 102, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            color: white;
-          "
-          :disabled="!hide_range.trim()"
-          @click="handle_show_messages"
-        >
-          <i class="fa-solid fa-eye"></i> 显示楼层
-        </button>
-        <button
-          class="action-button"
-          style="
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 16px;
-            border: 1px solid #ffcc02;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: #ffd43b;
-            color: #333;
-          "
-          @click="() => handle_refresh_hidden(true)"
-        >
-          <i class="fa-solid fa-refresh"></i> 刷新
-        </button>
-      </div>
-
-      <!-- 显示隐藏的楼层列表 -->
-      <div v-if="hidden_messages.length > 0" class="hidden-messages-section">
-        <div class="form-group">
-          <label class="flex-label">
-            <span>已隐藏的楼层 ({{ hidden_messages.length }} 个)</span>
-            <button class="mini-button" @click="hidden_display_expanded = !hidden_display_expanded">
-              {{ hidden_display_expanded ? '收起' : '展开' }}
-            </button>
-          </label>
+        <div class="form-group" style="margin-bottom: 18px !important">
+          <label style="display: block; margin-bottom: 6px; color: #ccc; font-size: 13px"
+            >隐藏楼层范围（如：1-10 或单个楼层如：5）</label
+          >
+          <input
+            v-model="hide_range"
+            type="text"
+            placeholder="1-10"
+            style="
+              width: 100%;
+              padding: 10px 12px;
+              background: #2a2a2a;
+              border: 1px solid #3a3a3a;
+              border-radius: 6px;
+              color: #e0e0e0;
+              font-size: 13px;
+              transition: border-color 0.2s;
+            "
+          />
         </div>
-        <div v-if="hidden_display_expanded" class="hidden-messages-list">
-          <div v-for="msg in hidden_messages" :key="msg.message_id" class="hidden-message-item">
-            <div class="message-info">
-              <span class="message-id">#{{ msg.message_id }}</span>
-              <span class="message-role" :class="'role-' + msg.role">
-                {{ msg.role === 'user' ? '👤' : msg.role === 'assistant' ? '🤖' : '⚙️' }}
-                {{ msg.name }}
-              </span>
-              <span class="message-preview">
-                {{ msg.message.substring(0, 50) }}{{ msg.message.length > 50 ? '...' : '' }}
-              </span>
+        <div class="button-group" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 5px">
+          <button
+            class="action-button"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #ff5252;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: #ff6b6b;
+              color: white;
+            "
+            @click="handle_hide_messages"
+          >
+            <i class="fa-solid fa-eye-slash"></i> 隐藏楼层
+          </button>
+          <button
+            class="action-button"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #40c057;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+              box-shadow:
+                0 2px 8px rgba(81, 207, 102, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+              color: white;
+            "
+            :disabled="!hide_range.trim()"
+            @click="handle_show_messages"
+          >
+            <i class="fa-solid fa-eye"></i> 显示楼层
+          </button>
+          <button
+            class="action-button"
+            style="
+              flex: 1;
+              min-width: 120px;
+              padding: 12px 16px;
+              border: 1px solid #ffcc02;
+              border-radius: 6px;
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 13px;
+              transition: all 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              background: #ffd43b;
+              color: #333;
+            "
+            @click="() => handle_refresh_hidden(true)"
+          >
+            <i class="fa-solid fa-refresh"></i> 刷新
+          </button>
+        </div>
+
+        <!-- 显示隐藏的楼层列表 -->
+        <div v-if="hidden_messages.length > 0" class="hidden-messages-section">
+          <div class="form-group">
+            <label class="flex-label">
+              <span>已隐藏的楼层 ({{ hidden_messages.length }} 个)</span>
+              <button class="mini-button" @click="hidden_display_expanded = !hidden_display_expanded">
+                {{ hidden_display_expanded ? '收起' : '展开' }}
+              </button>
+            </label>
+          </div>
+          <div v-if="hidden_display_expanded" class="hidden-messages-list">
+            <div v-for="msg in hidden_messages" :key="msg.message_id" class="hidden-message-item">
+              <div class="message-info">
+                <span class="message-id">#{{ msg.message_id }}</span>
+                <span class="message-role" :class="'role-' + msg.role">
+                  {{ msg.role === 'user' ? '👤' : msg.role === 'assistant' ? '🤖' : '⚙️' }}
+                  {{ msg.name }}
+                </span>
+                <span class="message-preview">
+                  {{ msg.message.substring(0, 50) }}{{ msg.message.length > 50 ? '...' : '' }}
+                </span>
+              </div>
+              <button class="show-button" @click="() => handle_unhide_single(msg.message_id)">显示</button>
             </div>
-            <button class="show-button" @click="() => handle_unhide_single(msg.message_id)">显示</button>
           </div>
         </div>
-      </div>
-      <div v-else class="empty-state">暂无隐藏的楼层</div>
+        <div v-else class="empty-state">暂无隐藏的楼层</div>
       </div>
     </div>
 
@@ -1309,7 +1379,10 @@ const saveHeaderTemplates = () => {
       console.warn('script_id 为空，无法保存列头模板');
       return;
     }
-    insertOrAssignVariables(klona({ header_templates: headerTemplates.value }), { type: 'script', script_id: scriptId });
+    insertOrAssignVariables(klona({ header_templates: headerTemplates.value }), {
+      type: 'script',
+      script_id: scriptId,
+    });
     console.log('已保存列头模板');
   } catch (error) {
     console.error('保存列头模板失败:', error);
@@ -1523,13 +1596,13 @@ const handleSaveApiConfig = () => {
     // 立即保存配置
     const success = settingsStore.saveSettings();
     if (success) {
-    console.log('API 配置已保存:', {
-      endpoint: settings.value.api_endpoint,
-      model: settings.value.model,
+      console.log('API 配置已保存:', {
+        endpoint: settings.value.api_endpoint,
+        model: settings.value.model,
         provider: settings.value.api_provider,
-      // 不打印完整的 API Key
-      api_key: settings.value.api_key ? '***' + settings.value.api_key.slice(-4) : '',
-    });
+        // 不打印完整的 API Key
+        api_key: settings.value.api_key ? '***' + settings.value.api_key.slice(-4) : '',
+      });
     }
   } catch (error) {
     console.error('保存 API 配置失败:', error);
@@ -1556,57 +1629,61 @@ const handleImportFromTavern = async () => {
     console.log('当前配置文件返回:', currentProfileResult);
 
     // 如果没有配置文件，尝试直接读取全局配置
-    if (!currentProfileResult || currentProfileResult === 'No connection profile selected.' || currentProfileResult.includes('未选择')) {
+    if (
+      !currentProfileResult ||
+      currentProfileResult === 'No connection profile selected.' ||
+      currentProfileResult.includes('未选择')
+    ) {
       console.log('⚠️ 未选择连接配置文件，尝试读取全局配置...');
-      
+
       // 回退到读取父窗口的全局变量
       const parentWin = window.parent || window.top || window;
       const powerUser = (parentWin as any).power_user;
       const secretState = (parentWin as any).secret_state;
-      
+
       let endpoint = '';
       let apiKey = '';
       let model = '';
-      
+
       if (powerUser) {
         endpoint = powerUser.custom_chat_url || powerUser.reverse_proxy || '';
         model = powerUser.custom_model || powerUser.openai_model || '';
       }
-      
+
       if (secretState) {
         apiKey = secretState.api_key_custom || secretState.custom || secretState.openai || '';
       }
-      
+
       if (!endpoint && !apiKey && !model) {
         window.toastr.warning(
           '未能读取到 API 配置。\n\n' +
-          '💡 建议：在酒馆主界面创建一个连接配置文件\n' +
-          '（API 连接菜单 → 连接配置文件 → 创建）'
+            '💡 建议：在酒馆主界面创建一个连接配置文件\n' +
+            '（API 连接菜单 → 连接配置文件 → 创建）',
         );
         return;
       }
-      
+
       // 使用全局配置
       if (endpoint) settings.value.api_endpoint = endpoint;
       if (apiKey) settings.value.api_key = apiKey;
       if (model) settings.value.model = model;
-      
+
       await settingsStore.saveSettings();
-      
+
       window.toastr.success(
         `✅ 从全局配置导入成功！\n\n` +
-        (endpoint ? `• 端点: ${endpoint}\n` : '') +
-        (apiKey ? `• Key: ***${apiKey.slice(-4)}\n` : '') +
-        (model ? `• 模型: ${model}` : '')
+          (endpoint ? `• 端点: ${endpoint}\n` : '') +
+          (apiKey ? `• Key: ***${apiKey.slice(-4)}\n` : '') +
+          (model ? `• 模型: ${model}` : ''),
       );
-      
+
       return;
     }
 
     // 步骤 2: 获取配置文件详情
     const profileName = currentProfileResult.trim();
     console.log(`2️⃣ 获取配置文件详情: ${profileName}`);
-    
+
     const profileDetailsResult = await triggerSlash('/profile-get', profileName);
     console.log('配置文件详情返回:', profileDetailsResult);
 
@@ -1625,7 +1702,7 @@ const handleImportFromTavern = async () => {
     let endpoint = '';
     let apiKey = '';
     let model = '';
-    
+
     // API 端点（可能是 api-url 或 server_url）
     if (profileData['api-url']) {
       endpoint = profileData['api-url'];
@@ -1634,7 +1711,7 @@ const handleImportFromTavern = async () => {
       endpoint = profileData.server_url;
       console.log('✅ 找到 API 端点 (server_url):', endpoint);
     }
-    
+
     // API Key - 尝试读取（通常不可用，存储在服务器端）
     if (profileData['secret-id']) {
       const secretId = profileData['secret-id'];
@@ -1644,7 +1721,7 @@ const handleImportFromTavern = async () => {
       apiKey = profileData.key;
       console.log('✅ 找到 API Key (key)');
     }
-    
+
     // 模型（model）
     if (profileData.model) {
       model = profileData.model;
@@ -1655,15 +1732,15 @@ const handleImportFromTavern = async () => {
     if (!endpoint && !model) {
       window.toastr.warning(
         '配置文件中未找到 API 配置信息。\n\n' +
-        '可能的原因：\n' +
-        '• 配置文件格式不符合预期\n' +
-        '• 配置文件未保存完整信息\n\n' +
-        '💡 查看控制台了解详细数据'
+          '可能的原因：\n' +
+          '• 配置文件格式不符合预期\n' +
+          '• 配置文件未保存完整信息\n\n' +
+          '💡 查看控制台了解详细数据',
       );
       console.warn('📋 配置文件完整数据:', profileData);
       return;
     }
-    
+
     // 如果没有读取到 API Key（通常情况）
     if (!apiKey) {
       console.log('ℹ️ API Key 存储在服务器端，需要手动输入');
@@ -1672,19 +1749,19 @@ const handleImportFromTavern = async () => {
     // 导入配置
     let importedCount = 0;
     const importDetails: string[] = [];
-    
+
     if (endpoint) {
       settings.value.api_endpoint = endpoint;
       importedCount++;
       importDetails.push(`• API 端点: ${endpoint}`);
     }
-    
+
     if (apiKey) {
       settings.value.api_key = apiKey;
       importedCount++;
       importDetails.push(`• API Key: ***${apiKey.slice(-4)}`);
     }
-    
+
     if (model) {
       settings.value.model = model;
       importedCount++;
@@ -1695,10 +1772,11 @@ const handleImportFromTavern = async () => {
     await settingsStore.saveSettings();
 
     // 构建成功消息
-    let successMessage = `🎉 成功从酒馆导入 ${importedCount} 项配置！\n\n` +
+    let successMessage =
+      `🎉 成功从酒馆导入 ${importedCount} 项配置！\n\n` +
       `📋 配置文件: ${profileName}\n\n` +
       `${importDetails.join('\n')}`;
-    
+
     // 如果没有导入 API Key，添加提示
     if (!apiKey) {
       successMessage += `\n\n⚠️ API Key 需要手动输入\n（出于安全考虑，酒馆不在前端存储 API Key）`;
@@ -1712,7 +1790,6 @@ const handleImportFromTavern = async () => {
       apiKey: apiKey ? '***' + apiKey.slice(-4) : '',
       model,
     });
-
   } catch (error) {
     console.error('❌ 从酒馆导入配置失败:', error);
     window.toastr.error('导入失败：' + (error as Error).message);
@@ -1747,7 +1824,7 @@ const handle_fetch_models = async () => {
       available_models.value = models;
       window.toastr.success(
         `🎉 成功获取 ${models.length} 个模型！\n` +
-        `模型列表: ${models.slice(0, 3).join(', ')}${models.length > 3 ? '...' : ''}`
+          `模型列表: ${models.slice(0, 3).join(', ')}${models.length > 3 ? '...' : ''}`,
       );
 
       // 如果有模型，自动选择第一个
@@ -1760,24 +1837,24 @@ const handle_fetch_models = async () => {
     }
   } catch (error) {
     console.error('❌ 拉取模型失败:', error);
-    
+
     // 显示详细的错误信息
     const errorMessage = (error as Error).message;
-    
+
     // 如果错误信息很长，显示简短版本
     if (errorMessage.length > 200) {
       window.toastr.error(
         '❌ 拉取模型失败\n\n' +
-        '请打开浏览器控制台（F12）查看详细的调试信息\n\n' +
-        '可能的原因：\n' +
-        '• API 不支持 /v1/models 接口\n' +
-        '• API Key 权限不足\n' +
-        '• 网络连接问题或 CORS 限制'
+          '请打开浏览器控制台（F12）查看详细的调试信息\n\n' +
+          '可能的原因：\n' +
+          '• API 不支持 /v1/models 接口\n' +
+          '• API Key 权限不足\n' +
+          '• 网络连接问题或 CORS 限制',
       );
     } else {
       window.toastr.error(`❌ 拉取模型失败\n\n${errorMessage}`);
     }
-    
+
     console.error('📋 完整错误信息:', errorMessage);
   } finally {
     loading_models.value = false;
@@ -1822,23 +1899,16 @@ const handle_test_connection = async () => {
     if (response.ok) {
       const data = await response.json();
       console.log('API 测试响应:', data);
-      
+
       // 提取响应内容和模型信息
       const reply = data.choices?.[0]?.message?.content || '(无内容)';
       const modelUsed = data.model || settings.value.model;
-      
-      window.toastr.success(
-        `✅ 连接成功！\n` +
-        `📦 模型: ${modelUsed}\n` +
-        `💬 回复: ${reply.substring(0, 50)}...`
-      );
+
+      window.toastr.success(`✅ 连接成功！\n` + `📦 模型: ${modelUsed}\n` + `💬 回复: ${reply.substring(0, 50)}...`);
     } else {
       const errorText = await response.text();
       console.error('API 错误响应:', errorText);
-      window.toastr.error(
-        `❌ 连接失败 (${response.status})\n` +
-        `详情: ${errorText.substring(0, 100)}`
-      );
+      window.toastr.error(`❌ 连接失败 (${response.status})\n` + `详情: ${errorText.substring(0, 100)}`);
     }
   } catch (error) {
     console.error('连接测试失败:', error);
@@ -1878,7 +1948,9 @@ const handle_summarize = async () => {
     showProgress.value = true;
     progressDialogRef.value?.setProgress(10);
     progressDialogRef.value?.setMessage('正在准备生成总结...');
-    progressDialogRef.value?.addDetail(`楼层范围: ${settings.value.start_message_id} - ${settings.value.end_message_id}`);
+    progressDialogRef.value?.addDetail(
+      `楼层范围: ${settings.value.start_message_id} - ${settings.value.end_message_id}`,
+    );
 
     progressDialogRef.value?.setProgress(30);
     progressDialogRef.value?.setMessage('正在调用 AI 生成总结...');
@@ -1915,7 +1987,7 @@ const handle_summarize = async () => {
 
     setTimeout(() => {
       showProgress.value = false;
-    window.toastr.success('总结完成并已保存到历史！');
+      window.toastr.success('总结完成并已保存到历史！');
     }, 800);
   } catch (error) {
     console.error('总结失败:', error);
@@ -1987,7 +2059,9 @@ const handle_generate_table = async () => {
 
     progressDialogRef.value?.setProgress(15);
     progressDialogRef.value?.setMessage('正在获取聊天消息...');
-    progressDialogRef.value?.addDetail(`楼层范围: ${settings.value.table_start_message_id} - ${settings.value.table_end_message_id}`);
+    progressDialogRef.value?.addDetail(
+      `楼层范围: ${settings.value.table_start_message_id} - ${settings.value.table_end_message_id}`,
+    );
 
     // 获取指定范围的消息
     let chatMessages;
@@ -1996,7 +2070,7 @@ const handle_generate_table = async () => {
       console.log('获取消息范围:', messageRange);
       chatMessages = getChatMessages(messageRange, { hide_state: 'all' });
       console.log('获取到的消息数量:', chatMessages.length);
-      
+
       progressDialogRef.value?.addDetail(`获取到 ${chatMessages.length} 条消息`);
     } catch (error) {
       console.error('获取聊天消息失败:', error);
@@ -2042,7 +2116,7 @@ ${messagesText}
 注意：data数组中每个子数组的长度必须等于${headers.length}，对应列头：${headers.join(', ')}`;
 
     console.log('发送AI请求...');
-    
+
     progressDialogRef.value?.setProgress(30);
     progressDialogRef.value?.setMessage('正在发送请求到 AI 服务器...');
     progressDialogRef.value?.addDetail(`表格列头: ${headers.join(', ')}`);
@@ -2171,7 +2245,7 @@ ${messagesText}
 
       setTimeout(() => {
         showProgress.value = false;
-      window.toastr.success(`表格生成成功！共${tableData.data.length}行数据`);
+        window.toastr.success(`表格生成成功！共${tableData.data.length}行数据`);
       }, 800);
 
       console.log('表格已保存到聊天变量:', table_history);

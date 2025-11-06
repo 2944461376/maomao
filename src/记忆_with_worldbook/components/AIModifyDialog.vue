@@ -36,7 +36,10 @@
       <p style="color: #888; margin: 0 0 15px 0; line-height: 1.6">
         {{ description || '描述你想要修改的地方，AI 会在当前基础上进行调整。' }}
       </p>
-      <ul v-if="examples && examples.length > 0" style="color: #888; margin: 0 0 20px 0; padding-left: 20px; line-height: 1.8">
+      <ul
+        v-if="examples && examples.length > 0"
+        style="color: #888; margin: 0 0 20px 0; padding-left: 20px; line-height: 1.8"
+      >
         <li v-for="(example, index) in examples" :key="index">{{ example }}</li>
       </ul>
       <textarea
@@ -59,19 +62,18 @@
       <!-- 加载进度条 -->
       <div
         v-if="isModifying"
-        style="
-          margin-bottom: 20px;
-          background: #1a1a1a;
-          border-radius: 8px;
-          padding: 15px;
-          border: 1px solid #444;
-        "
+        style="margin-bottom: 20px; background: #1a1a1a; border-radius: 8px; padding: 15px; border: 1px solid #444"
       >
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px">
-          <i class="fa-solid fa-wand-magic-sparkles" style="color: #ffc107; font-size: 18px; animation: pulse 1.5s infinite"></i>
+          <i
+            class="fa-solid fa-wand-magic-sparkles"
+            style="color: #ffc107; font-size: 18px; animation: pulse 1.5s infinite"
+          ></i>
           <span style="color: #ffc107; font-weight: 600; font-size: 14px">AI 正在生成中...</span>
         </div>
-        <div style="width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden; position: relative">
+        <div
+          style="width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden; position: relative"
+        >
           <div class="progress-bar"></div>
         </div>
         <p style="color: #888; font-size: 12px; margin: 8px 0 0 0; text-align: center">请稍候，这可能需要几秒钟</p>
@@ -237,4 +239,3 @@ div::-webkit-scrollbar-thumb:hover {
   }
 }
 </style>
-

@@ -916,7 +916,11 @@ function saveConfig() {
 
 // 清空所有开场白配置（不影响角色卡原文）
 function clearAllConfig() {
-  if (!confirm(`确定要清空所有开场白的配置吗？\n\n当前共有 ${greetings.value.length} 个开场白，清空后所有图标、标题、描述都将恢复默认。\n\n⚠️ 此操作不会删除角色卡的开场白原文，只清空显示配置！`)) {
+  if (
+    !confirm(
+      `确定要清空所有开场白的配置吗？\n\n当前共有 ${greetings.value.length} 个开场白，清空后所有图标、标题、描述都将恢复默认。\n\n⚠️ 此操作不会删除角色卡的开场白原文，只清空显示配置！`,
+    )
+  ) {
     return;
   }
 
@@ -935,10 +939,10 @@ function clearAllConfig() {
 
     // 保存配置
     saveConfig();
-    
+
     // 强制更新预览（切换到默认样式）
     updatePreview();
-    
+
     toastr.success('已清空所有开场白配置，预览已恢复默认样式');
   } catch (error) {
     console.error('清空配置失败:', error);
@@ -1279,23 +1283,58 @@ async function generateStyleWithAI(styleDescription: string) {
         const title = g.title || (index === 0 ? '默认开场白' : `开场白 ${index}`);
         const desc = g.description || '点击开始对话';
         const badge = index === 0 ? '默认' : String(index).padStart(2, '0');
-        return '      <' + 'div class="scene-card" onclick="switchGreeting(' + index + ')">' +
-          '<' + 'div class="card-badge">' + badge + '<' + '/div>' +
-          '<' + 'div class="card-icon">' + icon + '<' + '/div>' +
-          '<' + 'div class="card-title">' + title + '<' + '/div>' +
-          '<' + 'div class="card-desc">' + desc + '<' + '/div>' +
-          '<' + '/div>';
+        return (
+          '      <' +
+          'div class="scene-card" onclick="switchGreeting(' +
+          index +
+          ')">' +
+          '<' +
+          'div class="card-badge">' +
+          badge +
+          '<' +
+          '/div>' +
+          '<' +
+          'div class="card-icon">' +
+          icon +
+          '<' +
+          '/div>' +
+          '<' +
+          'div class="card-title">' +
+          title +
+          '<' +
+          '/div>' +
+          '<' +
+          'div class="card-desc">' +
+          desc +
+          '<' +
+          '/div>' +
+          '<' +
+          '/div>'
+        );
       })
       .join('\n');
 
-    const systemPrompt = `你是一个专业的前端开发专家，擅长创建美观的HTML/CSS界面。
+    const systemPrompt =
+      `你是一个专业的前端开发专家，擅长创建美观的HTML/CSS界面。
 
 任务：根据用户的风格描述，生成一个完整的HTML页面代码，用于展示开场白选择界面。
 
 要求：
-1. 包含完整的 HTML 结构（` + '<' + `html>、` + '<' + `head>、` + '<' + `body>）
-2. 在 ` + '<' + `head> 中包含 Font Awesome 图标库：` + '<' + `link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-3. 所有样式写在 ` + '<' + `style> 标签内，不要使用外部 CSS 文件
+1. 包含完整的 HTML 结构（` +
+      '<' +
+      `html>、` +
+      '<' +
+      `head>、` +
+      '<' +
+      `body>）
+2. 在 ` +
+      '<' +
+      `head> 中包含 Font Awesome 图标库：` +
+      '<' +
+      `link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+3. 所有样式写在 ` +
+      '<' +
+      `style> 标签内，不要使用外部 CSS 文件
 4. 必须包含以下HTML结构（保持类名不变）：
    - body（页面背景）
    - .container（主容器）
@@ -1361,23 +1400,40 @@ async function generateStyleWithAI(styleDescription: string) {
       }
     }`;
 
-    const userPrompt = `风格描述：${styleDescription}
+    const userPrompt =
+      `风格描述：${styleDescription}
 
 以下是需要展示的开场白卡片（每个卡片需要有 onclick="switchGreeting(序号)" 属性）：
 ${cards}
 
-【重要】必须在 ` + '<' + `/body> 前添加以下 JavaScript 代码：
-` + '<' + `script>
+【重要】必须在 ` +
+      '<' +
+      `/body> 前添加以下 JavaScript 代码：
+` +
+      '<' +
+      `script>
 ${switchGreetingCode}
-` + '<' + `/script>
+` +
+      '<' +
+      `/script>
 
 【重要】每个 .scene-card 必须添加 onclick="switchGreeting(序号)" 属性，例如：
-` + '<' + `div class="scene-card" onclick="switchGreeting(0)">
+` +
+      '<' +
+      `div class="scene-card" onclick="switchGreeting(0)">
 
 【重要】必须包含一个 loading 提示元素：
-` + '<' + `div class="loading" id="loading" style="display: none; text-align: center; padding: 40px;">
-  ` + '<' + `p style="color: #888; font-size: 18px;">切换中...` + '<' + `/p>
-` + '<' + `/div>
+` +
+      '<' +
+      `div class="loading" id="loading" style="display: none; text-align: center; padding: 40px;">
+  ` +
+      '<' +
+      `p style="color: #888; font-size: 18px;">切换中...` +
+      '<' +
+      `/p>
+` +
+      '<' +
+      `/div>
 
 请生成完整的HTML代码，确保包含以上所有要求：`;
 
@@ -1484,12 +1540,34 @@ async function generateFrontendCode() {
       const desc = g.description || '点击开始对话';
       const badge = index === 0 ? '默认' : String(index).padStart(2, '0');
 
-      return '        <' + 'div class="scene-card" onclick="switchGreeting(' + index + ')">' +
-        '<' + 'div class="card-badge">' + badge + '<' + '/div>' +
-        '<' + 'div class="card-icon">' + icon + '<' + '/div>' +
-        '<' + 'div class="card-title">' + title + '<' + '/div>' +
-        '<' + 'div class="card-desc">' + desc + '<' + '/div>' +
-        '<' + '/div>';
+      return (
+        '        <' +
+        'div class="scene-card" onclick="switchGreeting(' +
+        index +
+        ')">' +
+        '<' +
+        'div class="card-badge">' +
+        badge +
+        '<' +
+        '/div>' +
+        '<' +
+        'div class="card-icon">' +
+        icon +
+        '<' +
+        '/div>' +
+        '<' +
+        'div class="card-title">' +
+        title +
+        '<' +
+        '/div>' +
+        '<' +
+        'div class="card-desc">' +
+        desc +
+        '<' +
+        '/div>' +
+        '<' +
+        '/div>'
+      );
     })
     .join('\n\n');
 
@@ -1533,10 +1611,10 @@ async function generateFrontendCode() {
     '    <' + '/div>',
     '    <' + 'div class="scene-grid" id="sceneGrid">',
     cards,
-      '    <' + '/div>',
-      '  <' + '/div>',
-      '  <' + 'div class="loading" id="loading"><' + 'p>切换中...<' + '/p><' + '/div>',
-      '  <' + 'script>',
+    '    <' + '/div>',
+    '  <' + '/div>',
+    '  <' + 'div class="loading" id="loading"><' + 'p>切换中...<' + '/p><' + '/div>',
+    '  <' + 'script>',
     '    async function switchGreeting(id) {',
     '      try {',
     '        const loading = document.getElementById("loading");',
@@ -1606,7 +1684,7 @@ function updatePreview() {
   // 如果有AI生成的自定义HTML，使用它
   if (uiConfig.value.customHtml && uiConfig.value.customHtml.trim()) {
     console.log('🎨 使用AI生成的自定义HTML预览');
-    
+
     try {
       // 生成卡片HTML
       const cardsHtml = greetings.value
@@ -1615,7 +1693,7 @@ function updatePreview() {
           const title = g.title || (index === 0 ? '默认开场白' : `开场白 ${index}`);
           const desc = g.description || '点击开始对话';
           const badge = index === 0 ? '默认' : String(index).padStart(2, '0');
-          
+
           return `
         <div class="scene-card">
           <div class="card-badge">${badge}</div>
@@ -1625,14 +1703,14 @@ function updatePreview() {
         </div>`;
         })
         .join('\n');
-      
+
       // 查找 scene-grid 容器并替换内容
       let customHtml = uiConfig.value.customHtml;
-      
+
       // 尝试查找并替换 scene-grid 的内容
       const sceneGridPattern = /(<div[^>]*class="scene-grid"[^>]*>)([\s\S]*?)(<\/div>)/i;
       const match = customHtml.match(sceneGridPattern);
-      
+
       if (match) {
         // 替换 scene-grid 内的内容
         customHtml = customHtml.replace(sceneGridPattern, `$1\n${cardsHtml}\n      $3`);
@@ -1661,12 +1739,32 @@ function updatePreview() {
       const desc = g.description || '点击开始对话';
       const badge = index === 0 ? '默认' : String(index).padStart(2, '0');
 
-      return '        <' + 'div class="scene-card">' +
-        '<' + 'div class="card-badge">' + badge + '<' + '/div>' +
-        '<' + 'div class="card-icon">' + icon + '<' + '/div>' +
-        '<' + 'div class="card-title">' + title + '<' + '/div>' +
-        '<' + 'div class="card-desc">' + desc + '<' + '/div>' +
-        '<' + '/div>';
+      return (
+        '        <' +
+        'div class="scene-card">' +
+        '<' +
+        'div class="card-badge">' +
+        badge +
+        '<' +
+        '/div>' +
+        '<' +
+        'div class="card-icon">' +
+        icon +
+        '<' +
+        '/div>' +
+        '<' +
+        'div class="card-title">' +
+        title +
+        '<' +
+        '/div>' +
+        '<' +
+        'div class="card-desc">' +
+        desc +
+        '<' +
+        '/div>' +
+        '<' +
+        '/div>'
+      );
     })
     .join('\n\n');
 
