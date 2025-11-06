@@ -1,7 +1,0 @@
-{
-  "id": "mzrodyu-memory-management-local",
-  "name": "mzrodyu猫猫的小破烂（本地）",
-  "content": "import 'http://localhost:5500/dist/记忆/index.js'",
-  "info": "记忆管理脚本 - 本地开发版本",
-  "buttons": []
-}

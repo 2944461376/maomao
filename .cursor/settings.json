@@ -1,0 +1,22 @@
+{
+  "ai-assistant": {
+    "rules": {
+      "preventDestructiveOperations": true,
+      "blockedCommands": ["rm", "mv", "del", "rmdir"],
+      "safeModeEnabled": true
+    },
+    "fileOperations": {
+      "allowRename": false,
+      "allowDelete": false,
+      "requireConfirmationFor": ["delete", "rename", "move"]
+    }
+  },
+  "safety": {
+    "level": "high",
+    "blockDangerousCommands": true,
+    "warnings": {
+      "fileDeletion": true,
+      "fileModification": true
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "preventDestructiveCommands": true,
+    "blockedCommands": ["rm", "mv", "del", "rmdir"],
+    "requireConfirmation": ["delete", "remove", "move", "rename"],
+    "safeMode": true
+  },
+  "fileOperations": {
+    "allowRename": false,
+    "allowDelete": false,
+    "allowMove": false
+  },
+  "instructions": "Do NOT use rm, mv, or similar destructive commands. Use Edit tool for file modifications and warn users before any file deletion."
+}
