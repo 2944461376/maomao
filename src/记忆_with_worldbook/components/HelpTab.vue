@@ -799,11 +799,7 @@ const downloadLatest = async () => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
-    window.toastr.success(
-      `v${version} 已下载完成，请在酒馆脚本库重新导入该文件`,
-      '下载成功',
-      { timeOut: 8000 },
-    );
+    window.toastr.success(`v${version} 已下载完成，请在酒馆脚本库重新导入该文件`, '下载成功', { timeOut: 8000 });
   } catch (error: any) {
     console.error('下载失败:', error);
     window.toastr.error('下载失败: ' + error.message, '错误', { timeOut: 5000 });

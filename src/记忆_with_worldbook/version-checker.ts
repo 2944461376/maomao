@@ -218,17 +218,17 @@ function showUpdateNotification(cached: VersionInfo | null, latest: VersionInfo)
   $('#maomao-update-now').on('click', async () => {
     try {
       window.toastr.info('正在下载新版本...', '更新中', { timeOut: 2000 });
-      
+
       // 从 CDN 获取最新版本的 JSON 文件
       const jsonUrl = `https://testingcf.jsdelivr.net/gh/mzrodyu/maomao/dist/记忆_with_worldbook/猫猫的写卡小工具 v${latest.version}.json?_=${Date.now()}`;
       const response = await fetch(jsonUrl);
-      
+
       if (!response.ok) {
         throw new Error(`下载失败: HTTP ${response.status}`);
       }
-      
+
       const jsonContent = await response.text();
-      
+
       // 创建下载链接
       const blob = new Blob([jsonContent], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -239,16 +239,14 @@ function showUpdateNotification(cached: VersionInfo | null, latest: VersionInfo)
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       // 更新缓存版本
       setCachedVersion(latest);
       updateDialog.fadeOut(200, () => updateDialog.remove());
-      
-      window.toastr.success(
-        `v${latest.version} 已下载完成，请在酒馆脚本库重新导入该文件`,
-        '下载成功',
-        { timeOut: 8000 }
-      );
+
+      window.toastr.success(`v${latest.version} 已下载完成，请在酒馆脚本库重新导入该文件`, '下载成功', {
+        timeOut: 8000,
+      });
     } catch (error) {
       console.error('下载失败:', error);
       window.toastr.error('下载失败: ' + error.message, '错误', { timeOut: 5000 });
