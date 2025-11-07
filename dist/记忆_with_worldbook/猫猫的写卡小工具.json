@@ -1,0 +1,11 @@
+{
+  "name": "猫猫的写卡小工具",
+  "version": "1.33",
+  "description": "提供记忆管理、状态栏生成、开场白管理、总结功能等写卡辅助工具",
+  "author": "mzrodyu",
+  "scriptUrl": "https://testingcf.jsdelivr.net/gh/mzrodyu/maomao/dist/记忆_with_worldbook/index.js",
+  "category": "写卡工具",
+  "tags": ["记忆管理", "状态栏", "开场白", "总结", "世界书"],
+  "minTavernHelperVersion": "1.0.0"
+}
+
