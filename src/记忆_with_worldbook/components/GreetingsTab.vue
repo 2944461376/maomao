@@ -1351,7 +1351,13 @@ async function generateStyleWithAI(styleDescription: string) {
 5. 必须包含 switchGreeting(id) 函数的完整 JavaScript 代码
 6. 根据用户的风格描述设计颜色、字体、布局、动画等样式
 7. 确保响应式设计，在不同屏幕尺寸下都好看
-8. 直接输出完整的HTML代码，不要添加任何解释文字或markdown标记`;
+8. 直接输出完整的HTML代码，不要添加任何解释文字或markdown标记
+
+【重要】样式要求：
+- body 必须使用 "min-height: 100vh; height: auto;" 而不是固定高度
+- body 必须使用 "display: flex; align-items: center; justify-content: center;" 来居中内容
+- .container 不要设置固定高度，使用 "height: auto;" 让内容自适应
+- 确保所有内容都能完整显示，不会被截断`;
 
     // 提供完整的 switchGreeting 函数代码
     const switchGreetingCode = `async function switchGreeting(id) {
@@ -1579,13 +1585,15 @@ async function generateFrontendCode() {
     '  <' + 'link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">',
     '  <' + 'style>',
     '    * { margin: 0; padding: 0; box-sizing: border-box; }',
+    '    html, body { height: 100%; }',
     '    body {',
     '      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;',
     '      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);',
-    '      padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center;',
+    '      padding: 20px; min-height: 100%; height: auto; display: flex; align-items: center; justify-content: center;',
+    '      overflow-y: auto;',
     '    }',
-    '    .container { max-width: 900px; width: 100%; background: rgba(255, 255, 255, 0.95);',
-    '      border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }',
+    '    .container { max-width: 900px; width: 100%; height: auto; background: rgba(255, 255, 255, 0.95);',
+    '      border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); margin: 20px auto; }',
     '    .header { text-align: center; margin-bottom: 40px; }',
     '    .header h1 { font-size: 32px; color: #333; margin-bottom: 10px; }',
     '    .header p { color: #666; font-size: 16px; }',
@@ -1776,13 +1784,15 @@ function updatePreview() {
     '  <' + 'link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">',
     '  <' + 'style>',
     '    * { margin: 0; padding: 0; box-sizing: border-box; }',
+    '    html, body { height: 100%; }',
     '    body {',
     '      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;',
     '      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);',
-    '      padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center;',
+    '      padding: 20px; min-height: 100%; height: auto; display: flex; align-items: center; justify-content: center;',
+    '      overflow-y: auto;',
     '    }',
-    '    .container { max-width: 900px; width: 100%; background: rgba(255, 255, 255, 0.95);',
-    '      border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }',
+    '    .container { max-width: 900px; width: 100%; height: auto; background: rgba(255, 255, 255, 0.95);',
+    '      border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); margin: 20px auto; }',
     '    .header { text-align: center; margin-bottom: 40px; }',
     '    .header h1 { font-size: 32px; color: #333; margin-bottom: 10px; }',
     '    .header p { color: #666; font-size: 16px; }',
