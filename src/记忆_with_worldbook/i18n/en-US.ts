@@ -150,7 +150,8 @@ export default {
     triggerText: 'Trigger Text',
     triggerTextPlaceholder: 'e.g., #status',
     uiDescription: 'UI Description',
-    uiDescriptionPlaceholder: 'Describe your desired UI in detail, e.g.: Game-style status bar showing HP, MP, EXP with progress bars',
+    uiDescriptionPlaceholder:
+      'Describe your desired UI in detail, e.g.: Game-style status bar showing HP, MP, EXP with progress bars',
     generateUI: 'Generate UI',
     generating: 'Generating...',
     preview: 'Preview',
@@ -219,4 +220,3 @@ export default {
     help: 'Help',
   },
 };
-

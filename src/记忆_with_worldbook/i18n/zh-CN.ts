@@ -150,7 +150,8 @@ export default {
     triggerText: '触发文本',
     triggerTextPlaceholder: '例如：#状态栏',
     uiDescription: 'UI 描述',
-    uiDescriptionPlaceholder: '详细描述你想要的界面效果，例如：游戏风格的状态栏，显示生命值、魔法值、经验值，使用进度条展示',
+    uiDescriptionPlaceholder:
+      '详细描述你想要的界面效果，例如：游戏风格的状态栏，显示生命值、魔法值、经验值，使用进度条展示',
     generateUI: '生成 UI',
     generating: '生成中...',
     preview: '预览',
@@ -219,4 +220,3 @@ export default {
     help: '使用帮助',
   },
 };
-
