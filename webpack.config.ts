@@ -372,6 +372,19 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           __VUE_I18N_FULL_INSTALL__: true,
           __VUE_I18N_LEGACY_API__: false,
         }),
+        // ⚠️ 在打包后的 JS 文件开头注入全局变量定义
+        // 必须在 vue-i18n 从 CDN 加载之前就定义好这些变量
+        new webpack.BannerPlugin({
+          banner: `
+// vue-i18n 全局变量（必须在模块加载之前定义）
+window.__VUE_PROD_DEVTOOLS__ = false;
+window.__INTLIFY_PROD_DEVTOOLS__ = false;
+window.__VUE_I18N_FULL_INSTALL__ = true;
+window.__VUE_I18N_LEGACY_API__ = false;
+          `.trim(),
+          raw: true,
+          entryOnly: true,
+        }),
       )
       .concat(
         should_obfuscate

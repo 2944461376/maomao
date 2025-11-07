@@ -1,10 +1,3 @@
-// ⚠️ 必须在导入 Vue 和 i18n 之前定义全局变量！
-// vue-i18n 在运行时需要这些全局变量
-(window as any).__VUE_PROD_DEVTOOLS__ = false;
-(window as any).__INTLIFY_PROD_DEVTOOLS__ = false;
-(window as any).__VUE_I18N_FULL_INSTALL__ = true;
-(window as any).__VUE_I18N_LEGACY_API__ = false;
-
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import i18n from './i18n';
