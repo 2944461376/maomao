@@ -24,7 +24,7 @@
       <div style="font-size: 48px; margin-bottom: 10px">🐱</div>
       <h2 style="margin: 0 0 10px 0; color: #4a9eff; font-size: 24px; font-weight: 600">mzrodyu猫猫的小破烂</h2>
       <div style="color: #888; font-size: 14px; margin-bottom: 15px">版本 v1.34</div>
-      
+
       <!-- 检查更新按钮 -->
       <button
         @click="checkUpdate"
@@ -40,10 +40,14 @@
           transition: all 0.3s ease;
           box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         "
-        @mouseenter="$event.target.style.transform = 'translateY(-2px)';
-                    $event.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)'"
-        @mouseleave="$event.target.style.transform = 'translateY(0)';
-                    $event.target.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)'"
+        @mouseenter="
+          $event.target.style.transform = 'translateY(-2px)';
+          $event.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)';
+        "
+        @mouseleave="
+          $event.target.style.transform = 'translateY(0)';
+          $event.target.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)';
+        "
       >
         <i class="fa-solid fa-rotate" style="margin-right: 6px"></i>
         检查更新

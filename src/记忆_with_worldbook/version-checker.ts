@@ -273,4 +273,3 @@ export function getCurrentVersion(): { version: string; commit: string; buildTim
     buildTime: BUILD_TIME,
   };
 }
-

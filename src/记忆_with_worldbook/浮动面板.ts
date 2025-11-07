@@ -374,7 +374,7 @@ $(() => {
       app.mount(panelContainer[0]);
       console.log('Vue 应用已成功挂载');
       console.log('Vue 实例:', (panelContainer[0] as any).__vue_app__);
-      
+
       // 初始化版本检测器
       initVersionChecker();
     } catch (error) {
