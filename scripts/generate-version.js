@@ -12,10 +12,22 @@ function extractVersionFromHelpTab() {
   const helpTabPath = path.join(__dirname, '../src/记忆_with_worldbook/components/HelpTab.vue');
   const content = fs.readFileSync(helpTabPath, 'utf-8');
   
-  // 匹配版本号，格式如：版本 v1.34
-  const match = content.match(/版本 v(\d+\.\d+)/);
-  if (match) {
-    return match[1];
+  // 匹配版本号，支持多种格式：
+  // 1. 版本 v1.34
+  // 2. {{ t('helpPage.version') }} v1.34
+  // 3. Version v1.34
+  const patterns = [
+    /版本 v(\d+\.\d+)/,
+    /Version v(\d+\.\d+)/,
+    /\{\{\s*t\(['"]\w+\.\w+['"]\)\s*\}\}\s*v(\d+\.\d+)/,  // {{ t('helpPage.version') }} v1.34
+    /version-info[^>]*>\s*[^v]*v(\d+\.\d+)/i,
+  ];
+  
+  for (const pattern of patterns) {
+    const match = content.match(pattern);
+    if (match) {
+      return match[1];
+    }
   }
   
   console.warn('⚠️  未能从 HelpTab.vue 提取版本号，使用默认版本 1.0');

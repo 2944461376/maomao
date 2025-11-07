@@ -128,8 +128,7 @@ export default {
     triggerText: '触发文本',
     triggerTextPlaceholder: '例如：#状态栏',
     uiDescription: 'UI 描述',
-    uiDescriptionPlaceholder:
-      '详细描述你想要的界面效果，例如：游戏风格的状态栏，显示生命值、魔法值、经验值，使用进度条展示',
+    uiDescriptionPlaceholder: '详细描述你想要的界面效果，例如：游戏风格的状态栏，显示生命值、魔法值、经验值，使用进度条展示',
     generateUI: '生成 UI',
     generating: '生成中...',
     preview: '预览',
@@ -196,5 +195,147 @@ export default {
   mvu: {
     title: 'MVU Beta',
     help: '使用帮助',
+  },
+
+  // 帮助页
+  helpPage: {
+    version: '版本',
+    checkUpdate: '检查更新',
+    downloadLatest: '下载最新版本',
+    copyright: '版权声明',
+    copyrightContent: {
+      line1: '📌 本脚本仅发布在类脑/旅程',
+      line2: '🚫 禁止二传',
+      line3: '⚠️ 二改需要获得作者允许',
+      line4: '❌ 商业化绝对禁止',
+    },
+    usageGuide: '使用说明',
+    features: {
+      title: '📋 功能简介',
+      summary: '<strong>总结：</strong>自动/手动总结对话，存入世界书',
+      cardAssist: '<strong>写卡辅助：</strong>生成角色卡、世界书条目，支持流式传输和 AI 修改',
+      statusBar: '<strong>状态栏生成：</strong>可视化配置状态栏，生成正则 JSON 和世界书条目',
+      mvu: '<strong>MVU Beta：</strong>生成变量结构、提示词模板、$meta 配置',
+      others: '<strong>其他：</strong>去八股、正则界面生成、前端项目管理、表格生成',
+    },
+    usage: {
+      title: '💡 使用方法',
+      apiConfig: '⚠️ API 配置',
+      apiFormats: '<strong>支持的格式：</strong>',
+      apiFormat1: '<code>https://api.openai.com</code> → 自动补全为 <code>/v1</code>',
+      apiFormat2: '<code>https://api.openai.com/v1</code> → 直接使用',
+      apiFormat3: '<code>https://your-proxy.com/v1/chat/completions</code> → 直接使用',
+      apiExample: '<strong>OpenAI 官方示例：</strong>',
+      import: '<strong>导入：</strong>酒馆助手 → 脚本库 → 导入 → 全局脚本',
+      firstUse: '<strong>首次使用：</strong>先去"设置"页配置 API',
+      autoSummary: '<strong>自动总结：</strong>建议开启，每 20-30 楼自动生成一次',
+    },
+    changelog: '更新日志',
+    updates: {
+      v134: {
+        date: '2025年11月7日',
+        features: [
+          '🌐 新增：多语言支持（中文/英文切换）',
+          '🐛 修复：vue-i18n 初始化错误',
+          '📱 优化：移动端完整响应式适配',
+          '🔧 优化：使用 testingcf.jsdelivr.net 加速访问',
+        ],
+      },
+      v133: {
+        date: '2025年11月5日',
+        title: '🎨 开场白管理器',
+        features: [
+          '新增：开场白美化选择器工具',
+          '自动读取角色卡的所有开场白',
+          '为每个开场白配置美化样式（图标、标题、描述）',
+          'AI 生成描述：根据开场白原文内容自动生成吸引人的描述',
+          'AI 编辑描述：根据需求快速修改描述',
+          '⭐ AI 生成界面样式：直接告诉AI你想要什么风格，自动生成完整HTML界面',
+          '实时预览生成的美化界面样式效果',
+          '一键导出为 STScript JSON 格式',
+          '配置自动保存到角色卡变量',
+        ],
+      },
+      v132: {
+        date: '2025年11月2日',
+        optimize: '🔧 优化',
+        optimizeFeatures: ['最小化图标支持拖动，可随意调整位置'],
+      },
+      v131: {
+        date: '2025年10月30日',
+        newFeatures: '✨ 新功能',
+        newFeaturesList: [
+          '同层对话：AI 回复直接显示在面板内，支持流式传输和正则过滤',
+          '状态栏生成器新增 AI 解析 XML 和自然语言生成字段功能',
+        ],
+        optimize: '🔧 优化',
+        optimizeFeatures: [
+          '完整的移动端适配：响应式布局、标签栏滚动、滑动切换',
+          '所有 AI 功能统一使用设置页的 API 配置',
+        ],
+      },
+      v130: {
+        date: '2025年10月26日',
+        newFeatures: '✨ 新功能',
+        newFeaturesList: [
+          '新增 MVU Beta 标签页：变量结构、提示词模板、$meta 配置生成',
+          '新增状态栏生成器：可视化配置状态栏，生成正则 JSON 和世界书条目',
+          '状态栏生成器支持 ABO 模板快速加载',
+        ],
+        optimize: '🔧 优化',
+        optimizeFeatures: [
+          '所有 AI 工具统一从设置页读取 max_tokens 和 temperature',
+          'MVU Beta 和状态栏生成器支持数据持久化',
+        ],
+      },
+      v129: {
+        date: '2025年10月25日',
+        newFeatures: '✨ 新功能',
+        newFeaturesList: ['新增状态栏生成器'],
+      },
+      v128: {
+        date: '2025年10月24日',
+        majorUpdate: '🎉 重大更新',
+        majorUpdateList: [
+          '前端项目管理器 AI 预览功能：生成代码后先预览对比，确认后再应用',
+          '修改历史记录和版本回滚：最多保留 50 条历史，可恢复到任意版本',
+          '反八股工具优化：适度清理，保持原文信息量和长度',
+        ],
+      },
+      v127: {
+        date: '2025年10月23日',
+        newFeatures: '✨ 新功能',
+        newFeaturesList: [
+          '流式传输支持：所有 AI 生成工具支持实时查看生成进度',
+          '正则界面生成器：用自然语言生成酒馆前端界面代码',
+          '世界书条目查看器和 AI 修改功能',
+        ],
+      },
+      v126: {
+        date: '2025年10月22日',
+        newFeatures: '✨ 新功能',
+        newFeaturesList: [
+          '前端项目管理器：完整前端系统编写，支持多文件、多模块、AI 续写',
+          '实时预览、项目模板、项目持久化',
+        ],
+      },
+      v125: {
+        date: '2025年10月21日',
+        newFeatures: '✨ 新功能',
+        newFeaturesList: ['批量修改世界书条目、反八股历史记录、帮助页面'],
+      },
+      v100: {
+        date: '2025年10月20日',
+        features: [
+          '🎉 初始版本发布',
+          '支持自动/手动总结、表格生成、反八股、世界书条目管理、楼层隐藏/显示',
+        ],
+      },
+    },
+    about: '关于',
+    madeWith: 'Made with',
+    by: 'by',
+    basedOn: '基于',
+    and: '和',
   },
 };

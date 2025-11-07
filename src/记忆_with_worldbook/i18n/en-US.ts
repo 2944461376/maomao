@@ -128,8 +128,7 @@ export default {
     triggerText: 'Trigger Text',
     triggerTextPlaceholder: 'e.g., #status',
     uiDescription: 'UI Description',
-    uiDescriptionPlaceholder:
-      'Describe your desired UI in detail, e.g.: Game-style status bar showing HP, MP, EXP with progress bars',
+    uiDescriptionPlaceholder: 'Describe your desired UI in detail, e.g.: Game-style status bar showing HP, MP, EXP with progress bars',
     generateUI: 'Generate UI',
     generating: 'Generating...',
     preview: 'Preview',
@@ -196,5 +195,147 @@ export default {
   mvu: {
     title: 'MVU Beta',
     help: 'Help',
+  },
+
+  // Help Page
+  helpPage: {
+    version: 'Version',
+    checkUpdate: 'Check for Updates',
+    downloadLatest: 'Download Latest Version',
+    copyright: 'Copyright Notice',
+    copyrightContent: {
+      line1: '📌 This script is only published on LeiNao/Journey',
+      line2: '🚫 Redistribution is prohibited',
+      line3: '⚠️ Modifications require author permission',
+      line4: '❌ Commercial use is absolutely prohibited',
+    },
+    usageGuide: 'User Guide',
+    features: {
+      title: '📋 Features',
+      summary: '<strong>Summary:</strong> Auto/manual chat summary, save to World Info',
+      cardAssist: '<strong>Card Assistant:</strong> Generate character cards, World Info entries, supports streaming and AI modification',
+      statusBar: '<strong>Status Bar Generator:</strong> Visual status bar configuration, generate regex JSON and World Info entries',
+      mvu: '<strong>MVU Beta:</strong> Generate variable structure, prompt templates, $meta configuration',
+      others: '<strong>Others:</strong> Remove clichés, regex UI generator, project manager, table generator',
+    },
+    usage: {
+      title: '💡 How to Use',
+      apiConfig: '⚠️ API Configuration',
+      apiFormats: '<strong>Supported formats:</strong>',
+      apiFormat1: '<code>https://api.openai.com</code> → Auto-complete to <code>/v1</code>',
+      apiFormat2: '<code>https://api.openai.com/v1</code> → Use directly',
+      apiFormat3: '<code>https://your-proxy.com/v1/chat/completions</code> → Use directly',
+      apiExample: '<strong>OpenAI official example:</strong>',
+      import: '<strong>Import:</strong> Tavern Helper → Script Library → Import → Global Script',
+      firstUse: '<strong>First Use:</strong> Configure API in Settings page first',
+      autoSummary: '<strong>Auto Summary:</strong> Recommended to enable, auto-generate every 20-30 floors',
+    },
+    changelog: 'Changelog',
+    updates: {
+      v134: {
+        date: 'Nov 7, 2025',
+        features: [
+          '🌐 New: Multi-language support (Chinese/English switching)',
+          '🐛 Fix: vue-i18n initialization error',
+          '📱 Optimize: Complete mobile responsive adaptation',
+          '🔧 Optimize: Use testingcf.jsdelivr.net for faster access',
+        ],
+      },
+      v133: {
+        date: 'Nov 5, 2025',
+        title: '🎨 Greetings Manager',
+        features: [
+          'New: Greetings beautification selector tool',
+          'Auto-read all character greetings',
+          'Configure beautification style for each greeting (icon, title, description)',
+          'AI generate description: Auto-generate attractive descriptions based on greeting content',
+          'AI edit description: Quickly modify descriptions based on requirements',
+          '⭐ AI generate interface style: Tell AI what style you want, auto-generate complete HTML interface',
+          'Real-time preview of generated beautification effects',
+          'One-click export to STScript JSON format',
+          'Configuration auto-save to character variables',
+        ],
+      },
+      v132: {
+        date: 'Nov 2, 2025',
+        optimize: '🔧 Optimize',
+        optimizeFeatures: ['Minimize icon supports dragging, can adjust position freely'],
+      },
+      v131: {
+        date: 'Oct 30, 2025',
+        newFeatures: '✨ New Features',
+        newFeaturesList: [
+          'Same-layer dialogue: AI replies displayed directly in panel, supports streaming and regex filtering',
+          'Status bar generator adds AI parsing XML and natural language field generation',
+        ],
+        optimize: '🔧 Optimize',
+        optimizeFeatures: [
+          'Complete mobile adaptation: responsive layout, tab scrolling, swipe switching',
+          'All AI functions unified to use API configuration from settings page',
+        ],
+      },
+      v130: {
+        date: 'Oct 26, 2025',
+        newFeatures: '✨ New Features',
+        newFeaturesList: [
+          'New MVU Beta tab: variable structure, prompt templates, $meta configuration generation',
+          'New status bar generator: visual status bar configuration, generate regex JSON and World Info entries',
+          'Status bar generator supports ABO template quick load',
+        ],
+        optimize: '🔧 Optimize',
+        optimizeFeatures: [
+          'All AI tools unified to read max_tokens and temperature from settings page',
+          'MVU Beta and status bar generator support data persistence',
+        ],
+      },
+      v129: {
+        date: 'Oct 25, 2025',
+        newFeatures: '✨ New Features',
+        newFeaturesList: ['New status bar generator'],
+      },
+      v128: {
+        date: 'Oct 24, 2025',
+        majorUpdate: '🎉 Major Update',
+        majorUpdateList: [
+          'Project manager AI preview: Preview and compare generated code before applying',
+          'Modification history and version rollback: Keep up to 50 history records, restore to any version',
+          'Remove clichés tool optimized: Moderate cleaning, maintain original information and length',
+        ],
+      },
+      v127: {
+        date: 'Oct 23, 2025',
+        newFeatures: '✨ New Features',
+        newFeaturesList: [
+          'Streaming support: All AI generation tools support real-time generation progress',
+          'Regex UI generator: Generate SillyTavern frontend UI code with natural language',
+          'World Info entry viewer and AI modification',
+        ],
+      },
+      v126: {
+        date: 'Oct 22, 2025',
+        newFeatures: '✨ New Features',
+        newFeaturesList: [
+          'Project manager: Complete frontend system writing, supports multiple files, modules, AI continuation',
+          'Real-time preview, project templates, project persistence',
+        ],
+      },
+      v125: {
+        date: 'Oct 21, 2025',
+        newFeatures: '✨ New Features',
+        newFeaturesList: ['Batch modify World Info entries, remove clichés history, help page'],
+      },
+      v100: {
+        date: 'Oct 20, 2025',
+        features: [
+          '🎉 Initial release',
+          'Support auto/manual summary, table generation, remove clichés, World Info entry management, floor hide/show',
+        ],
+      },
+    },
+    about: 'About',
+    madeWith: 'Made with',
+    by: 'by',
+    basedOn: 'Based on',
+    and: 'and',
   },
 };
