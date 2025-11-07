@@ -1,15 +1,14 @@
 /**
  * 版本检测模块
  * 检查是否有新版本可用，并提示用户更新
+ *
+ * 策略：
+ * - 不依赖构建时注入的版本信息（因为混淆后可能失效）
+ * - 从 localStorage 缓存上次检查的版本信息
+ * - 与远程最新版本比较
  */
 
-// 当前版本信息（构建时会被替换）
-// @ts-ignore
-const CURRENT_VERSION = '__VERSION__';
-// @ts-ignore
-const CURRENT_COMMIT = '__COMMIT__';
-// @ts-ignore
-const BUILD_TIME = '__BUILD_TIME__';
+const VERSION_CACHE_KEY = 'maomao_tool_cached_version';
 
 interface VersionInfo {
   version: string;
@@ -44,28 +43,54 @@ async function fetchLatestVersion(): Promise<VersionInfo | null> {
 }
 
 /**
- * 比较版本号
- * @returns true 如果远程版本更新
+ * 从 localStorage 获取缓存的版本信息
  */
-function isNewerVersion(currentVersion: string, remoteVersion: string): boolean {
-  // 如果版本号相同，不提示更新
-  if (currentVersion === remoteVersion) {
+function getCachedVersion(): VersionInfo | null {
+  try {
+    const cached = localStorage.getItem(VERSION_CACHE_KEY);
+    if (!cached) {
+      return null;
+    }
+    return JSON.parse(cached);
+  } catch (error) {
+    console.warn('读取缓存版本失败:', error);
+    return null;
+  }
+}
+
+/**
+ * 保存版本信息到 localStorage
+ */
+function setCachedVersion(versionInfo: VersionInfo): void {
+  try {
+    localStorage.setItem(VERSION_CACHE_KEY, JSON.stringify(versionInfo));
+  } catch (error) {
+    console.warn('保存缓存版本失败:', error);
+  }
+}
+
+/**
+ * 比较版本号
+ * @returns true 如果远程版本比缓存版本更新
+ */
+function isNewerVersion(cached: VersionInfo | null, remote: VersionInfo): boolean {
+  if (!cached) {
+    // 首次运行，保存当前版本
+    console.log('📌 首次检测，保存当前版本:', remote.version);
+    setCachedVersion(remote);
     return false;
   }
 
-  try {
-    const current = currentVersion.split('.').map(Number);
-    const remote = remoteVersion.split('.').map(Number);
+  // 比较 commit hash（最可靠）
+  if (remote.commitHash !== cached.commitHash) {
+    console.log('🔄 检测到新的 commit:', cached.shortHash, '->', remote.shortHash);
+    return true;
+  }
 
-    for (let i = 0; i < Math.max(current.length, remote.length); i++) {
-      const c = current[i] || 0;
-      const r = remote[i] || 0;
-      if (r > c) return true;
-      if (r < c) return false;
-    }
-  } catch (error) {
-    console.warn('⚠️  版本号比较失败，使用字符串比较');
-    return currentVersion !== remoteVersion;
+  // 比较版本号
+  if (remote.version !== cached.version) {
+    console.log('🔄 检测到新的版本:', cached.version, '->', remote.version);
+    return true;
   }
 
   return false;
@@ -74,13 +99,16 @@ function isNewerVersion(currentVersion: string, remoteVersion: string): boolean 
 /**
  * 显示更新提示
  */
-function showUpdateNotification(latestVersion: VersionInfo) {
+function showUpdateNotification(cached: VersionInfo | null, latest: VersionInfo) {
   // 检查用户是否选择了"不再提示"
   const skipVersion = localStorage.getItem('maomao_skip_update_version');
-  if (skipVersion === latestVersion.version) {
-    console.log(`ℹ️  用户选择跳过版本 ${latestVersion.version} 的更新提示`);
+  if (skipVersion === latest.version) {
+    console.log(`ℹ️  用户选择跳过版本 ${latest.version} 的更新提示`);
     return;
   }
+
+  const currentVersion = cached ? `v${cached.version}` : '未知';
+  const latestVersion = `v${latest.version}`;
 
   // 创建更新提示 UI
   const updateDialog = $(`
@@ -104,14 +132,14 @@ function showUpdateNotification(latestVersion: VersionInfo) {
       <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 600;">发现新版本！</h2>
       <div style="font-size: 16px; margin-bottom: 20px; opacity: 0.95;">
         <div style="margin-bottom: 8px;">
-          <strong>当前版本:</strong> v${CURRENT_VERSION}
+          <strong>当前版本:</strong> ${currentVersion}
         </div>
         <div>
-          <strong>最新版本:</strong> v${latestVersion.version}
+          <strong>最新版本:</strong> ${latestVersion}
         </div>
       </div>
       
-      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 25px;">
+      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
         <button id="maomao-update-now" style="
           padding: 12px 24px;
           background: white;
@@ -188,6 +216,8 @@ function showUpdateNotification(latestVersion: VersionInfo) {
 
   // 绑定按钮事件
   $('#maomao-update-now').on('click', () => {
+    // 更新缓存版本
+    setCachedVersion(latest);
     window.toastr.info('正在刷新页面以应用更新...', '更新中', { timeOut: 2000 });
     setTimeout(() => {
       window.location.reload();
@@ -200,12 +230,14 @@ function showUpdateNotification(latestVersion: VersionInfo) {
   });
 
   $('#maomao-update-skip').on('click', () => {
-    localStorage.setItem('maomao_skip_update_version', latestVersion.version);
+    // 更新缓存版本（跳过此版本相当于当作已更新）
+    setCachedVersion(latest);
+    localStorage.setItem('maomao_skip_update_version', latest.version);
     updateDialog.fadeOut(200, () => updateDialog.remove());
-    window.toastr.success(`已跳过版本 ${latestVersion.version}`, '更新提示', { timeOut: 3000 });
+    window.toastr.success(`已跳过版本 ${latestVersion}`, '更新提示', { timeOut: 3000 });
   });
 
-  console.log(`🎉 发现新版本: v${CURRENT_VERSION} -> v${latestVersion.version}`);
+  console.log(`🎉 发现新版本: ${currentVersion} -> ${latestVersion}`);
 }
 
 /**
@@ -218,24 +250,29 @@ export async function checkForUpdates(showToast: boolean = false): Promise<void>
       window.toastr.info('正在检查更新...', '版本检查', { timeOut: 2000 });
     }
 
+    const cached = getCachedVersion();
     console.log('🔍 检查版本更新...');
-    console.log(`   当前版本: v${CURRENT_VERSION} (${CURRENT_COMMIT})`);
+    if (cached) {
+      console.log(`   缓存版本: v${cached.version} (${cached.shortHash})`);
+    } else {
+      console.log('   缓存版本: (首次检测)');
+    }
 
-    const latestVersion = await fetchLatestVersion();
+    const latest = await fetchLatestVersion();
 
-    if (!latestVersion) {
+    if (!latest) {
       if (showToast) {
         window.toastr.warning('无法获取最新版本信息', '检查更新', { timeOut: 3000 });
       }
       return;
     }
 
-    console.log(`   远程版本: v${latestVersion.version} (${latestVersion.shortHash})`);
+    console.log(`   远程版本: v${latest.version} (${latest.shortHash})`);
 
     // 比较版本
-    if (isNewerVersion(CURRENT_VERSION, latestVersion.version)) {
+    if (isNewerVersion(cached, latest)) {
       console.log('✨ 发现新版本！');
-      showUpdateNotification(latestVersion);
+      showUpdateNotification(cached, latest);
     } else {
       console.log('✅ 当前已是最新版本');
       if (showToast) {
@@ -266,10 +303,6 @@ export function initVersionChecker(): void {
 /**
  * 获取当前版本信息
  */
-export function getCurrentVersion(): { version: string; commit: string; buildTime: string } {
-  return {
-    version: CURRENT_VERSION,
-    commit: CURRENT_COMMIT,
-    buildTime: BUILD_TIME,
-  };
+export function getCurrentVersion(): VersionInfo | null {
+  return getCachedVersion();
 }
