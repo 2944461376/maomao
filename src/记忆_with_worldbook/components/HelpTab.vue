@@ -23,7 +23,7 @@
     >
       <div style="font-size: 48px; margin-bottom: 10px">🐱</div>
       <h2 style="margin: 0 0 10px 0; color: #4a9eff; font-size: 24px; font-weight: 600">mzrodyu猫猫的小破烂</h2>
-      <div style="color: #888; font-size: 14px; margin-bottom: 15px">版本 v1.33</div>
+      <div style="color: #888; font-size: 14px; margin-bottom: 15px">版本 v1.34</div>
 
       <!-- 版权声明 -->
       <div
@@ -254,7 +254,7 @@
           line-height: 1.8;
         "
       >
-        <!-- v1.33 -->
+        <!-- v1.34 -->
         <div style="margin-bottom: 25px">
           <div
             style="
@@ -269,6 +269,39 @@
             <span
               style="
                 background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                color: white;
+                padding: 4px 10px;
+                border-radius: 12px;
+                font-size: 13px;
+                font-weight: 600;
+              "
+              >v1.34</span
+            >
+            <span style="color: #888; font-size: 13px">2025-11-07</span>
+          </div>
+          <ul class="update-list">
+            <li class="update-item">🌐 新增：多语言支持（中文/英文切换）</li>
+            <li class="update-item">🐛 修复：vue-i18n 初始化错误</li>
+            <li class="update-item">📱 优化：移动端完整响应式适配</li>
+            <li class="update-item">🔧 优化：使用 testingcf.jsdelivr.net 加速访问</li>
+          </ul>
+        </div>
+
+        <!-- v1.33 -->
+        <div style="margin-bottom: 25px">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 12px;
+              padding-bottom: 8px;
+              border-bottom: 1px solid #3a3a3a;
+            "
+          >
+            <span
+              style="
+                background: linear-gradient(135deg, #64748b 0%, #475569 100%);
                 color: white;
                 padding: 4px 10px;
                 border-radius: 12px;
