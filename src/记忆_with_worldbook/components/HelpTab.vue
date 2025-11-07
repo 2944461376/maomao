@@ -24,6 +24,30 @@
       <div style="font-size: 48px; margin-bottom: 10px">🐱</div>
       <h2 style="margin: 0 0 10px 0; color: #4a9eff; font-size: 24px; font-weight: 600">mzrodyu猫猫的小破烂</h2>
       <div style="color: #888; font-size: 14px; margin-bottom: 15px">版本 v1.34</div>
+      
+      <!-- 检查更新按钮 -->
+      <button
+        @click="checkUpdate"
+        style="
+          padding: 8px 20px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border: none;
+          border-radius: 20px;
+          color: white;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        "
+        @mouseenter="$event.target.style.transform = 'translateY(-2px)';
+                    $event.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)'"
+        @mouseleave="$event.target.style.transform = 'translateY(0)';
+                    $event.target.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)'"
+      >
+        <i class="fa-solid fa-rotate" style="margin-right: 6px"></i>
+        检查更新
+      </button>
 
       <!-- 版权声明 -->
       <div
@@ -688,12 +712,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { checkForUpdates } from '../version-checker';
 
 // 折叠展开状态
 const expandedSections = ref({
   usage: false,
   changelog: false,
 });
+
+// 检查更新
+const checkUpdate = () => {
+  checkForUpdates(true);
+};
 </script>
 
 <style scoped>

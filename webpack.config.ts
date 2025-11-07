@@ -1,6 +1,7 @@
 import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -20,6 +21,30 @@ const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').def
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// 提取版本信息
+function getVersionInfo() {
+  try {
+    // 从 HelpTab.vue 提取版本号
+    const helpTabPath = path.join(__dirname, 'src/记忆_with_worldbook/components/HelpTab.vue');
+    const content = fs.readFileSync(helpTabPath, 'utf-8');
+    const match = content.match(/版本 v(\d+\.\d+)/);
+    const version = match ? match[1] : '1.0';
+
+    // 获取 git commit hash
+    const commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+    const buildTime = new Date().toISOString();
+
+    return { version, commitHash, buildTime };
+  } catch (error) {
+    console.warn('⚠️  无法获取版本信息，使用默认值');
+    return { version: '1.0', commitHash: 'unknown', buildTime: new Date().toISOString() };
+  }
+}
+
+// 在配置加载时缓存版本信息，避免每次调用都重新执行
+const versionInfo = getVersionInfo();
+console.log('📦 构建版本信息:', versionInfo);
 
 interface Config {
   port: number;
@@ -371,6 +396,10 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           __INTLIFY_PROD_DEVTOOLS__: false,
           __VUE_I18N_FULL_INSTALL__: true,
           __VUE_I18N_LEGACY_API__: false,
+          // 版本信息（用于版本检测）
+          __VERSION__: JSON.stringify(versionInfo.version),
+          __COMMIT__: JSON.stringify(versionInfo.commitHash),
+          __BUILD_TIME__: JSON.stringify(versionInfo.buildTime),
         }),
         // ⚠️ 在打包后的 JS 文件开头注入全局变量定义
         // 必须在 vue-i18n 从 CDN 加载之前就定义好这些变量

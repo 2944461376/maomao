@@ -1,6 +1,7 @@
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import i18n from './i18n';
+import { initVersionChecker } from './version-checker';
 import 浮动面板 from './浮动面板.vue';
 
 $(() => {
@@ -373,6 +374,9 @@ $(() => {
       app.mount(panelContainer[0]);
       console.log('Vue 应用已成功挂载');
       console.log('Vue 实例:', (panelContainer[0] as any).__vue_app__);
+      
+      // 初始化版本检测器
+      initVersionChecker();
     } catch (error) {
       console.error('Vue 应用挂载失败:', error);
       console.error('错误详情:', JSON.stringify(error, null, 2));

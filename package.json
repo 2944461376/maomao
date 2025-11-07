@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build:dev": "webpack --mode development",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && node scripts/generate-version.js && node scripts/generate-json.js",
     "watch": "webpack --mode development --watch --progress",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,html,vue}\"",
     "lint": "eslint",
