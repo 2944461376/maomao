@@ -1,7 +1,10 @@
 import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+<<<<<<< HEAD
 import { execSync } from 'node:child_process';
+=======
+>>>>>>> 5222cd67a858e8df734db29241ac1f211ca14bca
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -22,6 +25,7 @@ const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').def
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+<<<<<<< HEAD
 // 提取版本信息
 function getVersionInfo() {
   try {
@@ -46,6 +50,8 @@ function getVersionInfo() {
 const versionInfo = getVersionInfo();
 console.log('📦 构建版本信息:', versionInfo);
 
+=======
+>>>>>>> 5222cd67a858e8df734db29241ac1f211ca14bca
 interface Config {
   port: number;
   entries: Entry[];
@@ -76,7 +82,11 @@ function common_path(lhs: string, rhs: string) {
 
 function glob_script_files() {
   const files: string[] = fs
+<<<<<<< HEAD
     .globSync(`src/**/index.{ts,js}`)
+=======
+    .globSync(`src/**/index.{ts,tsx,js,jsx}`)
+>>>>>>> 5222cd67a858e8df734db29241ac1f211ca14bca
     .filter(file => process.env.CI !== 'true' || !fs.readFileSync(path.join(__dirname, file)).includes('@no-ci'));
 
   const results: string[] = [];
@@ -392,6 +402,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           __VUE_OPTIONS_API__: false,
           __VUE_PROD_DEVTOOLS__: process.env.CI !== 'true',
           __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+<<<<<<< HEAD
           // vue-i18n 全局变量
           __INTLIFY_PROD_DEVTOOLS__: false,
           __VUE_I18N_FULL_INSTALL__: true,
@@ -413,6 +424,8 @@ window.__VUE_I18N_LEGACY_API__ = false;
           `.trim(),
           raw: true,
           entryOnly: true,
+=======
+>>>>>>> 5222cd67a858e8df734db29241ac1f211ca14bca
         }),
       )
       .concat(
@@ -490,6 +503,12 @@ window.__VUE_I18N_LEGACY_API__ = false;
       if (argv.mode !== 'production' && ['vue', 'pixi'].some(key => request.includes(key))) {
         return callback();
       }
+<<<<<<< HEAD
+=======
+      if (['react'].some(key => request.includes(key))) {
+        return callback();
+      }
+>>>>>>> 5222cd67a858e8df734db29241ac1f211ca14bca
       const global = {
         jquery: '$',
         lodash: '_',
