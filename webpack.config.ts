@@ -1,7 +1,10 @@
 import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+<<<<<<< HEAD
 import { execSync } from 'node:child_process';
+=======
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -22,6 +25,7 @@ const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').def
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+<<<<<<< HEAD
 // 提取版本信息
 function getVersionInfo() {
   try {
@@ -46,6 +50,8 @@ function getVersionInfo() {
 const versionInfo = getVersionInfo();
 console.log('📦 构建版本信息:', versionInfo);
 
+=======
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
 interface Config {
   port: number;
   entries: Entry[];
@@ -76,7 +82,11 @@ function common_path(lhs: string, rhs: string) {
 
 function glob_script_files() {
   const files: string[] = fs
+<<<<<<< HEAD
     .globSync(`src/**/index.{ts,js}`)
+=======
+    .globSync(`src/**/index.{ts,tsx,js,jsx}`)
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
     .filter(file => process.env.CI !== 'true' || !fs.readFileSync(path.join(__dirname, file)).includes('@no-ci'));
 
   const results: string[] = [];
@@ -276,7 +286,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
             },
           ].concat(
             entry.html === undefined
+<<<<<<< HEAD
               ? <any[]>[
+=======
+              ? [
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
                   {
                     test: /\.vue\.s(a|c)ss$/,
                     use: [
@@ -311,8 +325,13 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
                     use: ['style-loader', { loader: 'css-loader', options: { url: false } }, 'postcss-loader'],
                     exclude: /node_modules/,
                   },
+<<<<<<< HEAD
                 ]
               : <any[]>[
+=======
+                ] as any[]
+              : [
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
                   {
                     test: /\.s(a|c)ss$/,
                     use: [
@@ -332,7 +351,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
                     ],
                     exclude: /node_modules/,
                   },
+<<<<<<< HEAD
                 ],
+=======
+                ] as any[],
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
           ),
         },
       ],
@@ -392,6 +415,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           __VUE_OPTIONS_API__: false,
           __VUE_PROD_DEVTOOLS__: process.env.CI !== 'true',
           __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+<<<<<<< HEAD
           // vue-i18n 全局变量
           __INTLIFY_PROD_DEVTOOLS__: false,
           __VUE_I18N_FULL_INSTALL__: true,
@@ -413,6 +437,8 @@ window.__VUE_I18N_LEGACY_API__ = false;
           `.trim(),
           raw: true,
           entryOnly: true,
+=======
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
         }),
       )
       .concat(
@@ -490,6 +516,12 @@ window.__VUE_I18N_LEGACY_API__ = false;
       if (argv.mode !== 'production' && ['vue', 'pixi'].some(key => request.includes(key))) {
         return callback();
       }
+<<<<<<< HEAD
+=======
+      if (['react'].some(key => request.includes(key))) {
+        return callback();
+      }
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
       const global = {
         jquery: '$',
         lodash: '_',

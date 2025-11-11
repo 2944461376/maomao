@@ -50,6 +50,7 @@ export default [
         ...globals.browser,
       },
     },
+<<<<<<< HEAD
     settings: {
       'import-x/resolver': {
         typescript: {
@@ -61,16 +62,21 @@ export default [
         },
       },
     },
+=======
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
     rules: {
       'handle-callback-err': 'off',
       'import-x/no-console': 'off',
       'import-x/no-cycle': 'error',
       'import-x/no-dynamic-require': 'warn',
       'import-x/no-nodejs-modules': 'warn',
+<<<<<<< HEAD
       'import-x/no-unresolved': ['error', { 
         ignore: ['.vue$'],
         caseSensitive: false 
       }],
+=======
+>>>>>>> 863524288243b48f95f2dcf78eac2a71cc5b2777
       'no-dupe-class-members': 'off',
       'no-empty-function': 'off',
       'no-floating-decimal': 'error',
