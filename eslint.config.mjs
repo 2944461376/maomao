@@ -50,6 +50,7 @@ export default [
         ...globals.browser,
       },
     },
+<<<<<<< HEAD
     settings: {
       'import-x/resolver': {
         typescript: {
@@ -61,16 +62,22 @@ export default [
         },
       },
     },
+=======
+>>>>>>> b9c87dff9e7c9759a42bbc5a0675396be82983ad
     rules: {
       'handle-callback-err': 'off',
       'import-x/no-console': 'off',
       'import-x/no-cycle': 'error',
       'import-x/no-dynamic-require': 'warn',
       'import-x/no-nodejs-modules': 'warn',
+<<<<<<< HEAD
       'import-x/no-unresolved': ['error', { 
         ignore: ['.vue$'],
         caseSensitive: false 
       }],
+=======
+      'import-x/no-unresolved': [2, { ignore: ['^http'] }],
+>>>>>>> b9c87dff9e7c9759a42bbc5a0675396be82983ad
       'no-dupe-class-members': 'off',
       'no-empty-function': 'off',
       'no-floating-decimal': 'error',
@@ -81,6 +88,10 @@ export default [
       'no-undef': 'off',
       'no-unused-vars': 'off',
       'no-var': 'error',
+<<<<<<< HEAD
+=======
+      'pinia/no-duplicate-store-ids': 'off',
+>>>>>>> b9c87dff9e7c9759a42bbc5a0675396be82983ad
       'pinia/require-setup-store-properties-export': 'off',
       'prefer-const': 'warn',
       'vue/multi-word-component-names': 'off',
