@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -6,6 +7,17 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import url from 'node:url';
+=======
+import { FSWatcher, watch } from 'chokidar';
+import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import _ from 'lodash';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { exec } from 'node:child_process';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import path from 'node:path';
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
 import RemarkHTML from 'remark-html';
 import { Server } from 'socket.io';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -19,6 +31,7 @@ import WebpackObfuscator from 'webpack-obfuscator';
 const require = createRequire(import.meta.url);
 const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
 
+<<<<<<< HEAD
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -46,6 +59,8 @@ function getVersionInfo() {
 const versionInfo = getVersionInfo();
 console.log('📦 构建版本信息:', versionInfo);
 
+=======
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
 interface Config {
   port: number;
   entries: Entry[];
@@ -76,8 +91,15 @@ function common_path(lhs: string, rhs: string) {
 
 function glob_script_files() {
   const files: string[] = fs
+<<<<<<< HEAD
     .globSync(`src/**/index.{ts,js}`)
     .filter(file => process.env.CI !== 'true' || !fs.readFileSync(path.join(__dirname, file)).includes('@no-ci'));
+=======
+    .globSync(`src/**/index.{ts,tsx,js,jsx}`)
+    .filter(
+      file => process.env.CI !== 'true' || !fs.readFileSync(path.join(import.meta.dirname, file)).includes('@no-ci'),
+    );
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
 
   const results: string[] = [];
   const handle = (file: string) => {
@@ -127,8 +149,34 @@ function watch_it(compiler: webpack.Compiler) {
   }
 }
 
+<<<<<<< HEAD
 function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Configuration {
   const should_obfuscate = fs.readFileSync(path.join(__dirname, entry.script), 'utf-8').includes('@obfuscate');
+=======
+let watcher: FSWatcher;
+function dump_schema(compiler: webpack.Compiler) {
+  const execute = () => {
+    exec('pnpm dump', { cwd: import.meta.dirname });
+  };
+  const execute_debounced = _.debounce(execute, 500, { leading: true, trailing: false });
+  if (!compiler.options.watch) {
+    execute();
+  } else if (!watcher) {
+    watcher = watch('src', {
+      awaitWriteFinish: true,
+    }).on('all', (_event, path) => {
+      if (path.endsWith('schema.ts')) {
+        execute_debounced();
+      }
+    });
+  }
+}
+
+function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Configuration {
+  const should_obfuscate = fs
+    .readFileSync(path.join(import.meta.dirname, entry.script), 'utf-8')
+    .includes('@obfuscate');
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
   const script_filepath = path.parse(entry.script);
 
   return (_env, argv) => ({
@@ -139,7 +187,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
     watchOptions: {
       ignored: ['**/dist', '**/node_modules'],
     },
+<<<<<<< HEAD
     entry: path.join(__dirname, entry.script),
+=======
+    entry: path.join(import.meta.dirname, entry.script),
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
     target: 'browserslist',
     output: {
       devtoolNamespace: 'tavern_helper_template',
@@ -154,7 +206,15 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         return `${is_direct === true ? 'src' : 'webpack'}://${info.namespace}/${resource_path}${is_direct || is_vue_script ? '' : '?' + info.hash}`;
       },
       filename: `${script_filepath.name}.js`,
+<<<<<<< HEAD
       path: path.join(__dirname, 'dist', path.relative(path.join(__dirname, 'src'), script_filepath.dir)),
+=======
+      path: path.join(
+        import.meta.dirname,
+        'dist',
+        path.relative(path.join(import.meta.dirname, 'src'), script_filepath.dir),
+      ),
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
       chunkFilename: `${script_filepath.name}.[contenthash].chunk.js`,
       asyncChunks: true,
       clean: true,
@@ -276,7 +336,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
             },
           ].concat(
             entry.html === undefined
+<<<<<<< HEAD
               ? <any[]>[
+=======
+              ? ([
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
                   {
                     test: /\.vue\.s(a|c)ss$/,
                     use: [
@@ -311,8 +375,13 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
                     use: ['style-loader', { loader: 'css-loader', options: { url: false } }, 'postcss-loader'],
                     exclude: /node_modules/,
                   },
+<<<<<<< HEAD
                 ]
               : <any[]>[
+=======
+                ] as any[])
+              : ([
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
                   {
                     test: /\.s(a|c)ss$/,
                     use: [
@@ -332,7 +401,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
                     ],
                     exclude: /node_modules/,
                   },
+<<<<<<< HEAD
                 ],
+=======
+                ] as any[]),
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
           ),
         },
       ],
@@ -342,7 +415,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
       plugins: [
         new TsconfigPathsPlugin({
           extensions: ['.ts', '.js', '.tsx', '.jsx'],
+<<<<<<< HEAD
           configFile: path.join(__dirname, 'tsconfig.json'),
+=======
+          configFile: path.join(import.meta.dirname, 'tsconfig.json'),
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
         }),
       ],
       alias: {},
@@ -351,7 +428,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
       ? [new MiniCssExtractPlugin()]
       : [
           new HtmlWebpackPlugin({
+<<<<<<< HEAD
             template: path.join(__dirname, entry.html),
+=======
+            template: path.join(import.meta.dirname, entry.html),
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
             filename: path.parse(entry.html).base,
             scriptLoading: 'module',
             cache: false,
@@ -367,6 +448,10 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
     )
       .concat(
         { apply: watch_it },
+<<<<<<< HEAD
+=======
+        { apply: dump_schema },
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
         new VueLoaderPlugin(),
         unpluginAutoImport({
           dts: true,
@@ -392,6 +477,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           __VUE_OPTIONS_API__: false,
           __VUE_PROD_DEVTOOLS__: process.env.CI !== 'true',
           __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+<<<<<<< HEAD
           // vue-i18n 全局变量
           __INTLIFY_PROD_DEVTOOLS__: false,
           __VUE_I18N_FULL_INSTALL__: true,
@@ -413,6 +499,8 @@ window.__VUE_I18N_LEGACY_API__ = false;
           `.trim(),
           raw: true,
           entryOnly: true,
+=======
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
         }),
       )
       .concat(
@@ -424,6 +512,10 @@ window.__VUE_I18N_LEGACY_API__ = false;
                 selfDefending: true,
                 simplify: true,
                 splitStrings: true,
+<<<<<<< HEAD
+=======
+                seed: 1,
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
               }),
             ]
           : [],
@@ -476,6 +568,10 @@ window.__VUE_I18N_LEGACY_API__ = false;
         request.startsWith('/') ||
         request.startsWith('!') ||
         request.startsWith('http') ||
+<<<<<<< HEAD
+=======
+        request.startsWith('@/') ||
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
         path.isAbsolute(request) ||
         fs.existsSync(path.join(context, request)) ||
         fs.existsSync(request)
@@ -490,6 +586,12 @@ window.__VUE_I18N_LEGACY_API__ = false;
       if (argv.mode !== 'production' && ['vue', 'pixi'].some(key => request.includes(key))) {
         return callback();
       }
+<<<<<<< HEAD
+=======
+      if (['react'].some(key => request.includes(key))) {
+        return callback();
+      }
+>>>>>>> b35de94e317b52b390dc26cd21d44d07dbb55b9e
       const global = {
         jquery: '$',
         lodash: '_',
